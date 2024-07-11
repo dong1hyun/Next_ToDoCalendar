@@ -10,9 +10,9 @@ export default function Home() {
         <span className="text-2xl font-mj">ToDo Calendar</span>
       </div>
       
-      <div className="pt-10">
-        <Link href={"/create-account"} className="bg-orange-500 p-3 rounded-md mr-3">계정생성</Link>
-        <Link href={"/login"} className="bg-blue-500 p-3 rounded-md">로그인</Link>
+      <div className="pt-10 flex flex-col gap-3 items-center *:rounded-md *:p-3 *:w-40 *: text-center">
+        <Link href={"/create-account"} className="bg-red-500">계정생성</Link>
+        <Link href={"/login"} className="bg-blue-500">로그인</Link>
       </div>
     </div>)
 }
