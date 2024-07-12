@@ -4,6 +4,8 @@ import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "@/app
 import db from "@/app/lib/db";
 import { z } from "zod";
 import bcrypt from "bcrypt"
+import { redirect } from "next/navigation";
+import getSession from "@/app/lib/session";
 
 const checkPassword = ({ password, confirm_password }: { password: string, confirm_password: string }) => password === confirm_password
 const checkUsername = async (username: string) => {
@@ -64,9 +66,7 @@ export const create_account = async (prev: any, formData: FormData) => {
         password: formData.get("password"),
         confirm_password: formData.get("confirm_password")
     };
-
     const result = await userFormSchema.safeParseAsync(data);
-    console.log(result)
     if (!result.success) return result.error.flatten();
     const hashedPassword = await bcrypt.hash(result.data.password, 12);
     const user = await db.user.create({
@@ -74,7 +74,15 @@ export const create_account = async (prev: any, formData: FormData) => {
             username: result.data.username,
             email: result.data.email,
             password: hashedPassword
+        },
+        select: {
+            id:true
         }
     });
-    console.log(user);
+
+    const session = await getSession();
+    session.id = user.id;
+    await session.save();
+
+    redirect("/home");
 }
