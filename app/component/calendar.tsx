@@ -40,7 +40,7 @@ export function Calendar() {
 
     return (
         <div className="h-screen flex items-center justify-center px-4">
-            <div className="bg-white p-4 rounded-lg shadow-lg w-[600px]">
+            <div className="bg-white p-4 rounded-lg shadow-2xl w-[600px]">
                 <div className="text-center text-xl font-bold mb-4 flex justify-center items-center">
                     <span  className="hover:bg-gray-300 rounded-md cursor-pointer px-5">
                         {curDate.getFullYear()}년 {curDate.getMonth() + 1}월

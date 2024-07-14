@@ -14,4 +14,15 @@ model User {
   password String @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  toDos ToDo[]
+}
+
+model ToDo {
+  id Int @id @default(autoincrement())
+  title String 
+  description String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }

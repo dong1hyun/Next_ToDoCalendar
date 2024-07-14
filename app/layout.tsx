@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${myeongjo.variable}`}>
+      <body className={`${myeongjo.variable} font-mj`}>
         {children}
       </body>
     </html>

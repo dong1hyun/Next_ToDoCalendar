@@ -7,7 +7,7 @@ import { create_account } from "./action";
 export default function createAccount() {
     const [state, action] = useFormState(create_account, null);
     return (
-        <div className="flex flex-col items-center font-mj  mt-36 text-black gap-3">
+        <div className="flex flex-col items-center mt-36 text-black gap-3">
             <div className="flex flex-col gap-3 text-center">
                 <h1 className="text-2xl">안녕하세요!</h1>
                 <h1>계정 생성을 위한 정보를 입력해주세요</h1>

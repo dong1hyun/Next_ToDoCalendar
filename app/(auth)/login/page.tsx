@@ -9,7 +9,7 @@ import { Login } from "./action";
 export default function login() {
     const [state, action] = useFormState(Login, null);
     return (
-        <div className="flex flex-col items-center font-mj mt-36 text-black gap-3">
+        <div className="flex flex-col items-center mt-36 text-black gap-3">
             <div className="flex flex-col gap-3 text-center">
                 <h1 className="text-2xl">반갑습니다!</h1>
                 <h1>로그인 정보를 입력해주세요</h1>
