@@ -1,10 +1,13 @@
 "use client"
 
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
+import { onDayClick } from "../[email]/action";
 
 export function Calendar() {
+    const { email } = useParams<{email: string}>();
     const date = new Date();
     const [curDate, setCurDate] = useState<Date>(new Date(date.getFullYear(), date.getMonth(), 1));
     const [fade, setFade] = useState<boolean>(false);
@@ -67,8 +70,10 @@ export function Calendar() {
                 </div>
                 <div className={`grid grid-cols-7 grid-rows-6 gap-2 text-center transition-opacity duration-200 ${fade ? 'opacity-0' : 'opacity-100'}`}>
                     {createCalendar(curDate).map((day, i) => (
-                        <Link
-                            href={"/toDo"}
+                        <div
+                            onClick={() => {
+                                onDayClick(email, curDate.getFullYear(), curDate.getMonth(), day);
+                            }}
                             key={i}
                             className={`
                                 hover:bg-gray-300
@@ -82,7 +87,7 @@ export function Calendar() {
                                 `}
                         >
                             {day}
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const myeongjo = Nanum_Myeongjo({
-  weight:["400"],
+  weight: ["400"],
   subsets: ["latin"],
   variable: "--mj"
 });

@@ -27,7 +27,8 @@ export const Login = async (prev: any, formData: FormData) => {
         },
         select: {
             id: true,
-            password: true
+            password: true,
+            email: true
         }
     });
     
@@ -36,6 +37,7 @@ export const Login = async (prev: any, formData: FormData) => {
         const session = await getSession();
         session.id = user!.id;
         await session.save();
-        redirect("/home");
+        const email = user?.email.split('@')[0];
+        redirect(`/${email}`);
     }
 }
