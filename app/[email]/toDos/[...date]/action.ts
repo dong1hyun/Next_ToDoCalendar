@@ -9,27 +9,27 @@ export interface formData{
     description: string
 }
 
-export async function addToDo(data: formData, curDate: Date) {
-    console.log(data)
+export async function addToDo(data: formData, date: Date) {
     const session = await getSession();
-    // await db.toDo.create({
-    //     data: {
-    //         title: data.title,
-    //         description: data.description,
-    //         date: "date",
-    //         user: {
-    //             connect: {
-    //                 id: session.id
-    //             }
-    //         }
-    //     }
-    // });
+    await db.toDo.create({
+        data: {
+            title: data.title,
+            description: data.description,
+            date: date,
+            user: {
+                connect: {
+                    id: session.id
+                }
+            }
+        }
+    });
     revalidateTag(`toDos-${session.id}`);
 }
 
-export async function getToDos(userId: number) {
+export async function getToDos(userId: number, date: Date) {
     const toDos = await db.toDo.findMany({
         where: {
+            date: date,
             user: {
                 id: userId
             }

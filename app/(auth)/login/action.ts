@@ -6,10 +6,24 @@ import bcrypt from 'bcrypt';
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
+const checkEmailExists = async (email: string) => {
+    const user = await db.user.findUnique({
+      where: {
+        email
+      },
+      select: {
+        id: true
+      }
+    })
+  
+    return Boolean(user);
+  }
+
 const loginFormSchema = z.object({
     email: z
     .string()
-    .email(),
+    .email()
+    .refine(checkEmailExists, "An account with this email does not exist."),
     password: z
     .string()
 })
@@ -38,6 +52,14 @@ export const Login = async (prev: any, formData: FormData) => {
         session.id = user!.id;
         await session.save();
         const email = user?.email.split('@')[0];
-        redirect(`/${email}`);
-    }
+        const curDate = new Date();
+        redirect(`/${email}/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
+    } else {
+        return {
+          fieldErrors: {
+            password: ["Wrong password"],
+            email: []
+          }
+        }
+      }
 }

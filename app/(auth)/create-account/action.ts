@@ -76,7 +76,8 @@ export const create_account = async (prev: any, formData: FormData) => {
             password: hashedPassword
         },
         select: {
-            id:true
+            id:true,
+            email:true
         }
     });
 
@@ -84,5 +85,7 @@ export const create_account = async (prev: any, formData: FormData) => {
     session.id = user.id;
     await session.save();
 
-    redirect("/home");
+    const curDate = new Date();
+    const email = user?.email.split('@')[0];
+    redirect(`/${email}/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
 }

@@ -8,14 +8,15 @@ import { PlusIcon } from "@heroicons/react/16/solid";
 import { addToDo, formData } from "../[email]/toDos/[...date]/action";
 import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 export default function AddToDos() {
     const {date: date} = useParams();
     const [showPopUp, setShowPopUp] = useState(false);
     const { register, handleSubmit } = useForm<formData>();
     const onValid = async (data: formData) => {
-        console.log(new Date(+date[0], +date[1], +date[2]))
-        addToDo(data, new Date(+date[0], +date[1], +date[2]));
+        const router = useRouter();
+        await addToDo(data, new Date(+date[0], +date[1], +date[2]));
     }
     return (
         <>

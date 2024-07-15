@@ -1,17 +1,21 @@
 "use client"
 
-import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
-import { onDayClick } from "../[email]/action";
+import { onDayClick } from "../[email]/[...date]/action";
+import { useRouter } from "next/navigation";
 
-export function Calendar() {
-    const { email } = useParams<{email: string}>();
-    const date = new Date();
-    const [curDate, setCurDate] = useState<Date>(new Date(date.getFullYear(), date.getMonth(), 1));
-    const [fade, setFade] = useState<boolean>(false);
+interface urlForm {
+    email: string
+    date: string[]
+}
 
+export function Calendar({toDoCount}: {toDoCount: number[]}) {
+    const {email, date} = useParams<any>();
+    const year = +date[0];
+    const month = +date[1];
+    const curDate = new Date(year, month);
+    const router = useRouter();
     const createCalendar = (choosenDate: Date) => {
         const curYear = choosenDate.getFullYear();
         const curMonth = choosenDate.getMonth();
@@ -34,11 +38,9 @@ export function Calendar() {
     }
 
     const handleMonthChange = (offset: number) => {
-        setFade(true);
-        setTimeout(() => {
-            setCurDate(new Date(curDate.getFullYear(), curDate.getMonth() + offset));
-            setFade(false);
-        }, 300); // 트랜지션 지속 시간과 일치하게 설정
+        const newDate = new Date(year, month + offset);
+        // redirect(`/${email}/${newDate.getFullYear()}/${newDate.getMonth()}`);
+        router.push(`/${email}/${newDate.getFullYear()}/${newDate.getMonth()}`);
     };
 
     return (
@@ -46,7 +48,7 @@ export function Calendar() {
             <div className="bg-white p-4 rounded-lg shadow-2xl w-[600px]">
                 <div className="text-center text-xl font-bold mb-4 flex justify-center items-center">
                     <span  className="hover:bg-gray-300 rounded-md cursor-pointer px-5">
-                        {curDate.getFullYear()}년 {curDate.getMonth() + 1}월
+                        {year}년 {month}월
                     </span>
                     <div className="flex flex-col items-center *:rounded-md">
                         <IoMdArrowDropup 
@@ -68,7 +70,7 @@ export function Calendar() {
                     <span>FRI</span>
                     <span className="text-blue-500">SAT</span>
                 </div>
-                <div className={`grid grid-cols-7 grid-rows-6 gap-2 text-center transition-opacity duration-200 ${fade ? 'opacity-0' : 'opacity-100'}`}>
+                <div className={`grid grid-cols-7 grid-rows-6 gap-2 text-center transition-opacity duration-200`}>
                     {createCalendar(curDate).map((day, i) => (
                         <div
                             onClick={() => {
@@ -86,7 +88,7 @@ export function Calendar() {
                                 ${i % 7 === 6 ? "text-blue-500" : ""}
                                 `}
                         >
-                            {day}
+                            {day} {toDoCount[i]}
                         </div>
                     ))}
                 </div>
