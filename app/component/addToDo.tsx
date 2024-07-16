@@ -12,8 +12,10 @@ import { useParams } from "next/navigation";
 export default function AddToDos() {
     const {date: date} = useParams();
     const [showPopUp, setShowPopUp] = useState(false);
-    const { register, handleSubmit } = useForm<formData>();
+    const { register, handleSubmit, reset } = useForm<formData>();
     const onValid = async (data: formData) => {
+        setShowPopUp(false);
+        reset();
         await addToDo(data, new Date(+date[0], +date[1] - 1, +date[2] + 1));
     }
     return (

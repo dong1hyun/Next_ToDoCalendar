@@ -92,7 +92,7 @@ export function Calendar({toDoCount}: {toDoCount: number[]}) {
                             className={`
                                 relative
                                 ${startDow <= i && i < limit ? density(toDoCount[i-startDow]) : null}
-                                hover:bg-gray-300
+                                hover:opacity-60
                                 rounded-md
                                 cursor-pointer  
                                 p-2

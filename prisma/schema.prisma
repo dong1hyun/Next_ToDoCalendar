@@ -22,6 +22,7 @@ model ToDo {
   title String 
   description String
   date DateTime
+  isComplete Boolean @default(false)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

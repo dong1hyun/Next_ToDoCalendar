@@ -27,7 +27,6 @@ export async function addToDo(data: formData, date: Date) {
 }
 
 export async function getToDos(userId: number, date: Date) {
-    console.log(date)
     const toDos = await db.toDo.findMany({
         where: {
             date: date,
@@ -38,4 +37,15 @@ export async function getToDos(userId: number, date: Date) {
     });
 
     return toDos;
+}
+
+export const deleteToDo = async (id: number) => {
+    const session = await getSession();
+    "use server"
+    await db.toDo.delete({
+        where: {
+            id
+        }
+    });
+    revalidateTag(`toDos-${session.id}`);
 }
