@@ -17,7 +17,7 @@ export default async function ToDos({params}: paramsForm) {
     const date = params.date;
     const session = await getSession();
     const getCachedToDos = nextCache(getToDos, [`toDos-${session.id}`], { tags: [`toDos-${session.id}`] });
-    const toDos = await getCachedToDos(session.id!, new Date(+date[0], +date[1], +date[2]));
+    const toDos = await getCachedToDos(session.id!, new Date(+date[0], +date[1] - 1, +date[2] + 1));
     return (
         <div>
             <div className="flex flex-col items-center px-5">

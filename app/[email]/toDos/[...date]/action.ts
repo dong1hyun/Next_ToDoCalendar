@@ -27,6 +27,7 @@ export async function addToDo(data: formData, date: Date) {
 }
 
 export async function getToDos(userId: number, date: Date) {
+    console.log(date)
     const toDos = await db.toDo.findMany({
         where: {
             date: date,

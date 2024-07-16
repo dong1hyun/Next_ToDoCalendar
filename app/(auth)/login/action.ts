@@ -53,7 +53,7 @@ export const Login = async (prev: any, formData: FormData) => {
         await session.save();
         const email = user?.email.split('@')[0];
         const curDate = new Date();
-        redirect(`/${email}/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
+        redirect(`/${email}/${curDate.getFullYear()}/${curDate.getMonth()}`);
     } else {
         return {
           fieldErrors: {
