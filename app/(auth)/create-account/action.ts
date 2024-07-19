@@ -87,5 +87,5 @@ export const create_account = async (prev: any, formData: FormData) => {
 
     const curDate = new Date();
     const email = user?.email.split('@')[0];
-    redirect(`/${email}/${curDate.getFullYear()}/${curDate.getMonth()}`);
+    redirect(`/${email}/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
 }

@@ -33,6 +33,9 @@ export async function getToDos(userId: number, date: Date) {
             user: {
                 id: userId
             }
+        },
+        orderBy: {
+            created_at: "desc"
         }
     });
 
@@ -40,12 +43,35 @@ export async function getToDos(userId: number, date: Date) {
 }
 
 export const deleteToDo = async (id: number) => {
-    const session = await getSession();
     "use server"
+    const session = await getSession();
     await db.toDo.delete({
         where: {
             id
         }
     });
+    revalidateTag(`toDos-${session.id}`);
+}
+
+export const completeToDo = async (id: number) => {
+    "use server"
+    const session = await getSession();
+    const toDo = await db.toDo.findUnique({
+        where: {
+            id
+        },
+        select: {
+            isComplete: true
+        }
+    });
+    await db.toDo.update({
+        where: {
+            id
+        },
+        data: {
+            isComplete: !toDo?.isComplete
+        }
+    });
+
     revalidateTag(`toDos-${session.id}`);
 }

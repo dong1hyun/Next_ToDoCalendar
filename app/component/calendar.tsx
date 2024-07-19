@@ -73,7 +73,7 @@ export function Calendar({toDoCount}: {toDoCount: number[]}) {
                         />
                     </div>
                 </div>
-                <div className="grid grid-cols-7 text-center text-sm font-medium text-gray-600 mb-2">
+                <div className="flex gap-2 text-center text-sm font-medium text-gray-600 mb-2">
                     <span className="text-red-500">SUN</span>
                     <span>MON</span>
                     <span>TUE</span>
@@ -82,7 +82,7 @@ export function Calendar({toDoCount}: {toDoCount: number[]}) {
                     <span>FRI</span>
                     <span className="text-blue-500">SAT</span>
                 </div>
-                <div className={`grid grid-cols-7 grid-rows-6 gap-2 text-center transition-opacity duration-200`}>
+                <div className={`grid grid-cols-7 grid-rows-6 place-items-center gap-2 text-center transition-opacity duration-200`}>
                     {createCalendar().map((day, i) => (
                         <div
                             onClick={() => {
