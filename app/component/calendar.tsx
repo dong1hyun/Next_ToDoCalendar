@@ -73,7 +73,7 @@ export function Calendar({toDoCount}: {toDoCount: number[]}) {
                         />
                     </div>
                 </div>
-                <div className="flex gap-2 text-center text-sm font-medium text-gray-600 mb-2">
+                <div className="grid grid-cols-7 place-items-center text-sm font-medium text-gray-600 mb-2">
                     <span className="text-red-500">SUN</span>
                     <span>MON</span>
                     <span>TUE</span>

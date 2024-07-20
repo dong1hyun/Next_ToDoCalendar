@@ -35,7 +35,7 @@ export async function getToDos(userId: number, date: Date) {
             }
         },
         orderBy: {
-            created_at: "desc"
+            created_at: "asc"
         }
     });
 
