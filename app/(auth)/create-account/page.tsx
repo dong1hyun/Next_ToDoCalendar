@@ -4,6 +4,7 @@ import { Error, inputForm } from "@/app/component/auth";
 import { useFormState } from "react-dom";
 import { create_account } from "./action";
 
+//test
 export default function createAccount() {
     const [state, action] = useFormState(create_account, null);
     return (
