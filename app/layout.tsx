@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Nanum_Myeongjo } from "next/font/google";
+import { Inter, Nanum_Myeongjo, Do_Hyeon } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,6 +18,12 @@ const myeongjo = Nanum_Myeongjo({
   variable: "--mj"
 });
 
+const dohyun = Do_Hyeon({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--dh"
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${myeongjo.variable} font-mj`}>
+      <body className={`${myeongjo.variable} ${dohyun.variable} font-mj`}>
         {children}
       </body>
     </html>

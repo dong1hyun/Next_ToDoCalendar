@@ -6,16 +6,20 @@ import { revalidateTag } from "next/cache";
 
 export interface formData{
     title: string,
-    description: string
+    description: string,
+    type: string
 }
 
-export async function addToDo(data: formData, date: Date) {
+export async function addToDo(toDo: formData, year: number, month: number, day: number) {
     const session = await getSession();
     await db.toDo.create({
         data: {
-            title: data.title,
-            description: data.description,
-            date: date,
+            title: toDo.title,
+            description: toDo.description,
+            type: toDo.type,
+            year,
+            month,
+            day,
             user: {
                 connect: {
                     id: session.id
@@ -26,10 +30,12 @@ export async function addToDo(data: formData, date: Date) {
     revalidateTag(`toDos-${session.id}`);
 }
 
-export async function getToDos(userId: number, date: Date) {
+export async function getToDos(userId: number, year: number, month: number, day: number) {
     const toDos = await db.toDo.findMany({
         where: {
-            date: date,
+            year,
+            month,
+            day,
             user: {
                 id: userId
             }

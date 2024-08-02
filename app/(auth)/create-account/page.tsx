@@ -4,7 +4,6 @@ import { Error, inputForm } from "@/app/component/auth";
 import { useFormState } from "react-dom";
 import { create_account } from "./action";
 
-//test
 export default function createAccount() {
     const [state, action] = useFormState(create_account, null);
     return (
@@ -13,7 +12,7 @@ export default function createAccount() {
                 <h1 className="text-2xl">안녕하세요!</h1>
                 <h1>계정 생성을 위한 정보를 입력해주세요</h1>
             </div>
-            <form action={action} className="flex flex-col gap-3 w-[600px] max-w-full px-5">
+            <form action={action} className="flex flex-col gap-3 w-[390px] max-w-full px-5">
                 <input name="username" required placeholder="이름" className={inputForm} />
                 <Error errors={state?.fieldErrors.username} />
                 <input name="email" required placeholder="이메일" className={inputForm} />

@@ -56,7 +56,7 @@ export function Calendar({toDoCount}: {toDoCount: number[]}) {
     };
 
     return (
-        <div className="h-screen flex items-center justify-center px-4">
+        <div className="flex items-center w-[360px] sm:w-[450px] md:w-[600px] justify-center px-4">
             <div className="bg-white p-4 rounded-lg shadow-2xl w-[600px]">
                 <div className="text-center text-xl font-bold mb-4 flex justify-center items-center">
                     <span  className="hover:bg-gray-300 rounded-md cursor-pointer px-5">
