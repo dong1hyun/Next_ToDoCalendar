@@ -1,0 +1,21 @@
+const Element = () => <div className="flex gap-2"><span className="size-3 bg-red-500 rounded-full" /><span className="bg-neutral-300 rounded-md w-8" /></div>
+
+export default function Loading() {
+    return <div className="h-screen flex flex-col xl:flex-row justify-center items-center gap-14 animate-pulse">
+        <div className="h-[400px] w-[360px] sm:w-[450px] md:w-[600px] bg-white rounded-lg shadow-2xl " />
+        <div className="flex flex-col items-center gap-12">
+            <div className="bg-neutral-300 rounded-md w-36 h-8" />
+            <div className="size-48 bg-gradient-to-r from-purple-500 to-red-500 rounded-full flex justify-center items-center">
+                <div className="bg-white size-1/2 rounded-full" />
+            </div>
+            <div className="flex gap-3">
+                <Element />
+                <Element />
+                <Element />
+                <Element />
+                <Element />
+            </div>
+        </div>
+
+    </div>
+}

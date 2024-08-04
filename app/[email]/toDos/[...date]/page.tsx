@@ -13,6 +13,7 @@ interface paramsForm {
 }
 
 export default async function ToDos({ params }: paramsForm) {
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
   const date = params.date;
   const session = await getSession();
   const getCachedToDos = nextCache(getToDos, [`toDos-${session.id}`], { tags: [`toDos-${session.id}`] });

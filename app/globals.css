@@ -6,9 +6,17 @@ body {
   background-color: rgb(230, 230, 230);
 }
 
-body{
+body {
   -ms-overflow-style: none;
-  }
- ::-webkit-scrollbar {
-   display: none;
- }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

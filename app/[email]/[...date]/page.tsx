@@ -15,11 +15,29 @@ interface urlForm {
 
 const getToDoCount = async (year: number, month: number, day: number) => {
     const session = await getSession();
+    const exist = await db.toDo.count({
+        where: {
+            year,
+            month,
+            day,
+            isComplete: false,
+            user: {
+                id: session.id
+            }
+        }
+    });
+
+    return exist;
+}
+
+const getCompleteCount = async (year: number, month: number, day: number) => {
+    const session = await getSession();
     const count = await db.toDo.count({
         where: {
             year,
             month,
             day,
+            isComplete: true,
             user: {
                 id: session.id
             }
@@ -34,7 +52,8 @@ const getTypeCount = async (type: string, year: number, month: number) => {
         where: {
             type,
             year,
-            month
+            month,
+            isComplete: false
         }
     });
 
@@ -42,20 +61,23 @@ const getTypeCount = async (type: string, year: number, month: number) => {
 }
 
 export default async function home({ params }: urlForm) {
+    // await new Promise((resolve) => setTimeout(resolve, 5000));
     const year = +params.date[0];
     const month = +params.date[1];
-    const limit = new Date(year, month + 1, 0).getDate();
+    const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = [];
+    const completeCount: number[] = [];
     for (let i = 1; i <= limit; i++) {
         const count = await getToDoCount(year, month, i);
         toDoCount.push(count);
+        const count2 = await getCompleteCount(year, month, i);
+        completeCount.push(count2);
     }
     const work = await getTypeCount("업무", year, month);
     const friend = await getTypeCount("지인", year, month);
     const individual = await getTypeCount("개인", year, month);
     const education = await getTypeCount("교육", year, month);
     const social = await getTypeCount("사회활동", year, month);
-    console.log(work);
     const data = [
         {
             "id": "업무",
@@ -85,7 +107,7 @@ export default async function home({ params }: urlForm) {
     ]
     return (
         <div className="h-screen flex flex-col xl:flex-row justify-center items-center">
-            <Calendar toDoCount={toDoCount} />
+            <Calendar toDoCount={toDoCount} completeCount={completeCount} />
             <div className="flex flex-col items-center mt-6">
                 <h1 className="text-xl font-bold">당월 할 일 차트</h1>
                 <div className="w-80 h-80">
