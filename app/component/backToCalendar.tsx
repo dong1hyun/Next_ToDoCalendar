@@ -1,12 +1,12 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { IoArrowBackOutline } from "react-icons/io5";
+import { IoMdArrowBack } from "react-icons/io";
 
 export default function BackToCalendar() {
     const router = useRouter();
     const onBackClick = () => {
         router.back();
     }
-    return <IoArrowBackOutline className="m-5 size-10 cursor-pointer" onClick={onBackClick} />
+    return <IoMdArrowBack className="m-5 size-10 cursor-pointer" onClick={onBackClick} />
 }

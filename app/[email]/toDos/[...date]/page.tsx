@@ -20,7 +20,7 @@ export default async function ToDos({ params }: paramsForm) {
   const toDos = await getToDos(session.id!, +date[0], +date[1], +date[2]);
   return (
     <div>
-      <BackToCalendar />
+      {/* <BackToCalendar /> */}
       <div className="flex flex-col items-center">
         <h1 className="text-3xl mt-10">{+date[1]}월 {date[2]}일</h1>
         <div className="flex flex-col gap-5">
