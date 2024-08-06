@@ -5,7 +5,7 @@ import { IoIosBackspace } from "react-icons/io";
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
-import { addToDo, formData } from "../[email]/toDos/[...date]/action";
+import { addToDo, formData } from "../(home)/toDos/[...date]/action";
 import { inputForm } from "./auth";
 import { AnimatePresence, motion } from 'framer-motion';
 

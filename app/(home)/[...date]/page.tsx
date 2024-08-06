@@ -61,7 +61,7 @@ const getTypeCount = async (type: string, year: number, month: number) => {
 }
 
 export default async function home({ params }: urlForm) {
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     const year = +params.date[0];
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
@@ -106,7 +106,7 @@ export default async function home({ params }: urlForm) {
         },
     ]
     return (
-        <div className="h-screen flex flex-col xl:flex-row justify-center items-center">
+        <div className="h-screen flex flex-col xl:flex-row justify-center items-center pt-24 xl:pt-0">
             <Calendar toDoCount={toDoCount} completeCount={completeCount} />
             <div className="flex flex-col items-center mt-6">
                 <h1 className="text-xl font-bold">당월 할 일 차트</h1>

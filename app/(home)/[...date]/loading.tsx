@@ -1,7 +1,7 @@
 const Element = ({ bg }: { bg: string }) => <div className="flex gap-2"><span className={`size-4 bg-${bg}-500 rounded-full`} /><span className="bg-neutral-300 rounded-md w-8" /></div>
 
 export default function Loading() {
-    return <div className="h-screen flex flex-col xl:flex-row justify-center items-center gap-8 animate-pulse">
+    return <div className="h-screen flex flex-col xl:flex-row justify-center items-center gap-4 animate-pulse pt-20 xl:pt-0">
         <div className="h-[400px] w-[360px] sm:w-[450px] md:w-[600px] bg-white rounded-lg shadow-2xl " />
         <div className="flex flex-col items-center gap-12">
             <div className="bg-neutral-300 rounded-md w-36 h-8" />
@@ -16,6 +16,5 @@ export default function Loading() {
                 <Element bg="red" />
             </div>
         </div>
-
     </div>
 }

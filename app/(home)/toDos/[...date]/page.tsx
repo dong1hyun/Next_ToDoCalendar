@@ -1,5 +1,5 @@
 import getSession from "@/app/lib/session";
-import { getToDos } from "./action";
+import { getToDos } from "../[...date]/action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
 import AddToDos from "@/app/component/addToDo";
 import ToDoList from "@/app/component/toDoList";
@@ -13,7 +13,7 @@ interface paramsForm {
 }
 
 export default async function ToDos({ params }: paramsForm) {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const date = params.date;
   const session = await getSession();
   const getCachedToDos = nextCache(getToDos, [`toDos-${session.id}`], { tags: [`toDos-${session.id}`] });
@@ -21,7 +21,7 @@ export default async function ToDos({ params }: paramsForm) {
   return (
     <div>
       {/* <BackToCalendar /> */}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center pt-20">
         <h1 className="text-3xl mt-10">{+date[1]}월 {date[2]}일</h1>
         <div className="flex flex-col gap-5">
           <ToDoList toDos={toDos} />

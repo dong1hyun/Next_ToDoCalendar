@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
-import { onDayClick } from "../[email]/[...date]/action";
+import { onDayClick } from "../(home)/[...date]/action";
 import { useRouter } from "next/navigation";
 import { CiBookmarkCheck } from "react-icons/ci";
 import { useState } from "react";
@@ -66,7 +66,7 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
 
     const handleMonthChange = (offset: number) => {
         const newDate = new Date(year, month + offset);
-        router.push(`/${email}/${newDate.getFullYear()}/${newDate.getMonth() + 1}`);
+        router.push(`/${newDate.getFullYear()}/${newDate.getMonth() + 1}`);
     };
 
     const onDateClick = () => {
@@ -83,7 +83,7 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
         else if (data.month < 1 || data.month > 12) alert("월이 범위를 벗어났습니다.")
         else {
             setShowDate(false);
-            router.push(`/${email}/${data.year}/${data.month}`);
+            router.push(`/${data.year}/${data.month}`);
         }
     }
 

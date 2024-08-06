@@ -9,7 +9,7 @@ const Card = () => <div className="w-[300px] sm:min-w-[350px] md:min-w-[400px] b
 
 
 export default function Loading() {
-    return <div className="flex flex-col gap-5 items-center justify-center h-screen md:mt-16">
+    return <div className="flex flex-col gap-5 items-center justify-center pt-32">
             <div className="h-10 w-[180px] bg-gray-300 rounded" />
             <Card />
             <Card />
