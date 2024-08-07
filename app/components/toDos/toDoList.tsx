@@ -1,12 +1,12 @@
 "use client"
 
-import { completeToDo, deleteToDo } from "../(home)/toDos/[...date]/action";
+import { completeToDo, deleteToDo } from "../../(main)/toDos/[...date]/action";
 import { RiCloseFill } from "react-icons/ri";
 import { AnimatePresence, motion } from 'framer-motion';
 import { FcTodoList } from "react-icons/fc";
-import { formatToTimeAgo } from "../lib/util";
+import { formatToTimeAgo } from "../../lib/util";
 import { FaPlayCircle } from "react-icons/fa";
-import curToDo_store from "../lib/curToDo_store";
+import curToDo_store from "../../lib/curToDo_store";
 import { useState } from "react";
 
 interface toDosForm {
@@ -24,7 +24,7 @@ interface toDosForm {
 }
 
 export default function ToDoList({ toDos }: { toDos: toDosForm[] }) {
-    const {setCurToDo} = curToDo_store();
+    const { setCurToDo } = curToDo_store();
     const onPlayClick = (title: string) => {
         setCurToDo(title);
     }
@@ -44,7 +44,7 @@ export default function ToDoList({ toDos }: { toDos: toDosForm[] }) {
                         <div className="break-words">{toDo.description}</div>
                     </div>
                     <button onClick={() => completeToDo(toDo.id)} className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>{toDo.isComplete ? "취소" : "완료"}</button>
-                    <button onClick={() => onPlayClick(toDo.title)}><FaPlayCircle className="absolute right-2 top-1/2 size-5" /></button>
+                    {toDo.isComplete ? null : <button onClick={() => onPlayClick(toDo.title)}><FaPlayCircle className="absolute right-2 top-1/2 size-5" /></button>}
                     <div className="absolute right-0 bottom-0 p-1 text-xs font-bold opacity-65">{formatToTimeAgo(date.toString())}</div>
                 </motion.div>
             }

@@ -1,9 +1,9 @@
 import getSession from "@/app/lib/session";
-import { getToDos } from "../[...date]/action";
+import { getToDos } from "./action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
-import AddToDos from "@/app/component/addToDo";
-import ToDoList from "@/app/component/toDoList";
-import BackToCalendar from "@/app/component/backToCalendar";
+import AddToDos from "@/app/components/toDos/addToDo";
+import ToDoList from "@/app/components/toDos/toDoList";
+import BackToCalendar from "@/app/components/backToCalendar";
 
 interface paramsForm {
   params: {

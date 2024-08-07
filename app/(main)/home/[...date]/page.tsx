@@ -1,14 +1,13 @@
 "use server"
 
 import { useState } from "react";
-import { Calendar } from "../../component/calendar";
+import { Calendar } from "../../../components/calendar";
 import getSession from "@/app/lib/session";
 import db from "@/app/lib/db";
-import MyResponsivePie from "@/app/component/Chart";
+import MyResponsivePie from "@/app/components/Chart";
 
 interface urlForm {
     params: {
-        email: string
         date: string[]
     }
 }

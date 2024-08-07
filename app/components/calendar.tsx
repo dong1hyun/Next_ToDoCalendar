@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
-import { onDayClick } from "../(home)/[...date]/action";
+import { onDayClick } from "../(main)/home/[...date]/action";
 import { useRouter } from "next/navigation";
 import { CiBookmarkCheck } from "react-icons/ci";
 import { useState } from "react";
@@ -40,7 +40,7 @@ const SelectDate = styled(motion.form)`
     display: flex;
     gap: 5px;
 `
-const selectInputStyle = "bg-neutral-500 rounded-md px-2 w-16 md:w-24 text-sm"
+const selectInputStyle = "bg-neutral-300 rounded-md px-2 w-16 md:w-24 text-sm"
 
 export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], completeCount: number[] }) { 
     const { email, date } = useParams<any>();
@@ -66,7 +66,7 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
 
     const handleMonthChange = (offset: number) => {
         const newDate = new Date(year, month + offset);
-        router.push(`/${newDate.getFullYear()}/${newDate.getMonth() + 1}`);
+        router.push(`/home/${newDate.getFullYear()}/${newDate.getMonth() + 1}`);
     };
 
     const onDateClick = () => {
@@ -83,7 +83,7 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
         else if (data.month < 1 || data.month > 12) alert("월이 범위를 벗어났습니다.")
         else {
             setShowDate(false);
-            router.push(`/${data.year}/${data.month}`);
+            router.push(`/home/${data.year}/${data.month}`);
         }
     }
 
