@@ -46,13 +46,13 @@ const getCompleteCount = async (year: number, month: number, day: number) => {
     return count;
 }
 
-const getTypeCount = async (type: string, year: number, month: number) => {
+export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
     const count = await db.toDo.count({
         where: {
             type,
             year,
             month,
-            isComplete: false
+            isComplete
         }
     });
 
@@ -72,11 +72,11 @@ export default async function home({ params }: urlForm) {
         const count2 = await getCompleteCount(year, month, i);
         completeCount.push(count2);
     }
-    const work = await getTypeCount("업무", year, month);
-    const friend = await getTypeCount("지인", year, month);
-    const individual = await getTypeCount("개인", year, month);
-    const education = await getTypeCount("교육", year, month);
-    const social = await getTypeCount("사회활동", year, month);
+    const work = await getTypeCount("업무", year, month, false);
+    const friend = await getTypeCount("지인", year, month, false);
+    const individual = await getTypeCount("개인", year, month, false);
+    const education = await getTypeCount("교육", year, month, false);
+    const social = await getTypeCount("사회활동", year, month, false);
     const data = [
         {
             "id": "업무",
@@ -108,9 +108,9 @@ export default async function home({ params }: urlForm) {
         <div className="h-screen flex flex-col xl:flex-row justify-center items-center pt-24 xl:pt-0">
             <Calendar toDoCount={toDoCount} completeCount={completeCount} />
             <div className="flex flex-col items-center mt-6">
-                <h1 className="text-xl font-bold">이번 달 할 일 차트</h1>
+                <h1 className="text-xl font-bold">당월 할 일 차트</h1>
                 <div className="w-80 h-80">
-                    <MyResponsivePie data={data} />
+                    <MyResponsivePie data={data} colors={['#c56cf0', '#706fd3', '#34ace0', '#ff793f', '#e74c3c']} />
                 </div>
             </div>
         </div>

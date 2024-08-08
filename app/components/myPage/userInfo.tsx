@@ -1,6 +1,6 @@
 "use client"
 
-import { logOut } from "../(main)/myPage/action"
+import { logOut } from "../../(main)/myPage/action"
 
 interface userForm {
     username: string,
@@ -12,10 +12,9 @@ export default function UserInfo({user}: {user:userForm}) {
         <div className="flex flex-col gap-4 mt-32">
             <div>이름: {user.username}</div>
             <div>이메일: {user.email}</div>
-            {/* <form action={logOut}>
+            <form action={logOut}>
                 <button>로그아웃</button>
-            </form> */}
-            <button onClick={logOut}>로그아웃</button>
+            </form>
         </div>
     )
 }

@@ -2,12 +2,12 @@
 
 import { ResponsivePie } from "@nivo/pie";
 
-const MyResponsivePie = ({ data }: any) => (
+const MyResponsivePie = ({ data, colors }: any) => (
     <>
         <ResponsivePie
             data={data}
             margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-            colors={['#c56cf0', '#706fd3', '#34ace0', '#ff793f', '#e74c3c']}
+            colors={colors}
             innerRadius={0.5}
             padAngle={0.7}
             cornerRadius={3}
