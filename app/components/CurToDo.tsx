@@ -28,8 +28,8 @@ const CurToDo: React.FC = () => {
   }, [startTime]);
 
   return (
-    <div>
-      <h1>현재 진행중인 일: {title}</h1>
+    <div className='bg-blue-400 px-1 rounded-md text-sm md:text-base hover:scale-110 transition-transform duration-200  '>
+      <h1 className='max-w-32 truncate ...'>진행중: {title}</h1>
       <div>경과 시간: {elapsedTime}</div>
     </div>
   );

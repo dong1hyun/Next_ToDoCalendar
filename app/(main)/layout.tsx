@@ -12,10 +12,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="font-dh fixed top-0 z-20 flex justify-between items-center bg-neutral-300 h-14 w-full pr-5">
                 <BackToCalendar />
                 <div className="flex-grow" />
-                <button onClick={() => router.push("/myPage")} className="mx-5">
+                <CurToDo />
+                <button onClick={() => router.push("/myPage")} className="bg-orange-500 px-1 rounded-md mx-5 hover:scale-110 transition-transform duration-200">
                     마이페이지
                 </button>
-                <CurToDo />
             </div>
             {children}
         </div>
