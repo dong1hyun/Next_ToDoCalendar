@@ -42,7 +42,7 @@ const SelectDate = styled(motion.form)`
 `
 const selectInputStyle = "bg-neutral-300 rounded-md px-2 w-16 md:w-24 text-sm"
 
-export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], completeCount: number[] }) { 
+export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], completeCount: number[] }) {
     const { email, date } = useParams<any>();
     const [showDate, setShowDate] = useState(false);
     const { register, handleSubmit } = useForm<IForm>();
@@ -149,9 +149,8 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
                                 ${i % 7 === 6 ? "text-blue-500" : ""}
                                 `}
                         >
-                            {startDow <= i && i < limit && toDoCount[i - startDow] !== 0 ? <div className="absolute bg-blue-500 rounded-full right-0 top-0 size-2" /> : null}
+                            {startDow <= i && i - startDow < limit && toDoCount[i - startDow] !== 0 ? <div className="absolute bg-blue-500 rounded-full right-0 top-0 size-2" /> : null}
                             {day}
-                            {/* <div className="absolute text-xs right-1 top-0">{toDoCount[i - startDow] > 0 ? "+" + toDoCount[i - startDow] : null}</div> */}
                         </div>
                     ))}
                 </div>

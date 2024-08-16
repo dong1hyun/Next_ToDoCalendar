@@ -23,10 +23,11 @@ interface toDosForm {
     userId: number;
 }
 
-export default function ToDoList({ toDos }: { toDos: toDosForm[] }) {
+export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm[], year: number, month: number, day: number }) {
     const { setCurToDo } = curToDo_store();
+    console.log(year,month, day)
     const onPlayClick = (title: string) => {
-        setCurToDo(title);
+        setCurToDo(title, year, month, day);
     }
     return <AnimatePresence>
         <div className="flex flex-col gap-6 mt-10 last:mb-10">

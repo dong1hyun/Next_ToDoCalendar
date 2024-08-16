@@ -51,7 +51,7 @@ export default async function MyPage() {
             <div className="flex flex-col items-center mt-10">
                 <div className="text-2xl font-bold">{`${month}월 완료한 일`}</div>
                 <div className="size-80">
-                    <MyResponsivePie data={data} colors={['#c56cf0', '#706fd3', '#34ace0', '#ff793f', '#e74c3c']} />
+                    <MyResponsivePie data={data} colors={['#3498db', '#fbc531', '#e84118', '#3ae374', '#7158e2']} />
                 </div>
             </div>
         </div>
