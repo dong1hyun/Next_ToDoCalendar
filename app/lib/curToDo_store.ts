@@ -10,9 +10,9 @@ interface storeType {
 }
 
 const curToDo_store = create<storeType>((set) => ({
-    year: 2024,
-    month: 8,
-    day: 15,
+    year: 0,
+    month: 0,
+    day: 0,
     title: "없음",
     startTime: "",
     setCurToDo: (title: string, year: number, month: number, day: number) => set(() => ({

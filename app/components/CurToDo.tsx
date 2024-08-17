@@ -8,6 +8,9 @@ const CurToDo: React.FC = () => {
   const { title, startTime, year, month, day } = curToDo_store();
   const [elapsedTime, setElapsedTime] = useState("");
   const router = useRouter();
+  const onCurToDoClick = () => {
+    if(!(year === 0)) router.push(`/toDos/${year}/${month}/${day}`);
+  }
 
   useEffect(() => {
     const setCurrentTime = () => {
@@ -30,7 +33,7 @@ const CurToDo: React.FC = () => {
   }, [startTime]);
 
   return (
-    <div onClick={() => router.push(`/toDos/${year}/${month}/${day}`)} className='bg-blue-400 px-1 rounded-md text-sm md:text-base 
+    <div onClick={onCurToDoClick} className='bg-blue-400 px-1 rounded-md text-sm md:text-base 
     hover:scale-110 cursor-pointer transition-transform duration-200'>
       <h1 className='max-w-32 truncate ...'>진행중: {title}</h1>
       <div>경과 시간: {elapsedTime}</div>

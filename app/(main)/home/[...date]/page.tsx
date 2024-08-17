@@ -66,6 +66,7 @@ export default async function home({ params }: urlForm) {
     const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = [];
     const completeCount: number[] = [];
+    console.log(year,month)
     for (let i = 1; i <= limit; i++) {
         const count = await getToDoCount(year, month, i);
         toDoCount.push(count);

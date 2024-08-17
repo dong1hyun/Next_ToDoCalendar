@@ -43,6 +43,7 @@ const SelectDate = styled(motion.form)`
 const selectInputStyle = "bg-neutral-300 rounded-md px-2 w-16 md:w-24 text-sm"
 
 export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], completeCount: number[] }) {
+    console.log(completeCount)
     const { email, date } = useParams<any>();
     const [showDate, setShowDate] = useState(false);
     const { register, handleSubmit } = useForm<IForm>();
@@ -138,7 +139,7 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
                             key={i}
                             className={`
                                 relative
-                                ${startDow <= i && i < limit ? density(completeCount[i - startDow]) : null}
+                                ${startDow <= i && i - startDow < limit ? density(completeCount[i - startDow]) : null}
                                 hover:opacity-60
                                 rounded-md
                                 ${(day > 20 && i < 15) || (day < 15 && i > 20) ? null : "cursor-pointer"}  

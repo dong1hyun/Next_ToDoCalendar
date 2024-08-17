@@ -25,7 +25,6 @@ interface toDosForm {
 
 export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm[], year: number, month: number, day: number }) {
     const { setCurToDo } = curToDo_store();
-    console.log(year,month, day)
     const onPlayClick = (title: string) => {
         setCurToDo(title, year, month, day);
     }
