@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "./app/lib/session";
+import { getToken } from "next-auth/jwt";
 
 interface Routes {
     [key:string]: boolean;
@@ -11,23 +12,24 @@ const publicURLs: Routes = {
     "/create-account":true,
 }
 
-export async function middleware(request: NextRequest) {
-    const pathname = request.nextUrl.pathname;
+export async function middleware(req: NextRequest) {
+    const pathname = req.nextUrl.pathname;
     const exist = publicURLs[pathname];
     const session = await getSession();
-    console.log(new Date().getFullYear())
-    if(!session.id) { //로그아웃 상태
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    // console.log("Token:", token)
+    if(!session.id && !token) { //로그아웃 상태
         if(!exist) { //private에 접근
-            return NextResponse.redirect(new URL("/", request.url));
+            return NextResponse.redirect(new URL("/", req.url));
         }
     } else { //로그인 상태
         if(exist) { //public에 접근
             console.log(new Date().getDay())
-            return NextResponse.redirect(new URL(`/home/${new Date().getFullYear()}/${new Date().getMonth() + 1}`, request.url));
+            return NextResponse.redirect(new URL(`/home/${new Date().getFullYear()}/${new Date().getMonth() + 1}`, req.url));
         }
     }
 }
 
 export const config = {
-    matcher: ["/", "/login", "/create-account", "/home", "/myPage"]
+    matcher: ["/", "/login", "/create-account", "/home/:path*", "/myPage"]
 }

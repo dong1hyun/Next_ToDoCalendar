@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { FcGoogle } from "react-icons/fc";
 import { Login } from "./action";
+import { getSession, signIn, useSession } from "next-auth/react";
 
 export default function login() {
     const [state, action] = useFormState(Login, null);
+    const date = new Date();
     return (
         <div className="flex flex-col justify-center items-center mt-36 text-black gap-3 ">
             <div className="flex flex-col gap-3 text-center">
@@ -23,7 +25,7 @@ export default function login() {
                 <div className="my-6 h-px bg-neutral-500" />
             </form>
             <div className="flex text-white">
-                <Link href={"test"} className="w-[350px] flex items-center justify-center bg-blue-700 h-10 rounded-md hover:bg-blue-600"><FcGoogle className="size-5"/>continue with google</Link>
+                <div onClick={() => signIn("google", {callbackUrl: `/home/${date.getFullYear()}/${date.getMonth() + 1}`})} className="w-[350px] flex items-center justify-center cursor-pointer bg-blue-700 h-10 rounded-md hover:bg-blue-600"><FcGoogle className="size-5"/>continue with google</div>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Nanum_Myeongjo, Do_Hyeon } from "next/font/google";
 import "./globals.css";
+import Provider from "./Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${myeongjo.variable} ${dohyun.variable} font-mj`}>
-        {children}
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   );
