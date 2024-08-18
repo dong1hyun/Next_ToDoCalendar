@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "./app/lib/session";
 import { getToken } from "next-auth/jwt";
+import { getServerSession } from "next-auth";
 
 interface Routes {
     [key:string]: boolean;
@@ -17,7 +18,7 @@ export async function middleware(req: NextRequest) {
     const exist = publicURLs[pathname];
     const session = await getSession();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    // console.log("Token:", token)
+    // console.log("Token:", token);
     if(!session.id && !token) { //로그아웃 상태
         if(!exist) { //private에 접근
             return NextResponse.redirect(new URL("/", req.url));

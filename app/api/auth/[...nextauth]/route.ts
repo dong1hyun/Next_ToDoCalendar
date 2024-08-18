@@ -21,7 +21,7 @@ const handler = NextAuth({
           }
         });
         if(!exist) {
-          const use = await db.user.create({
+          const user = await db.user.create({
             data: {
               username: name!,
               email: email!,

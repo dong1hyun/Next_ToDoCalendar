@@ -5,6 +5,7 @@ import { Calendar } from "../../../components/calendar";
 import getSession from "@/app/lib/session";
 import db from "@/app/lib/db";
 import MyResponsivePie from "@/app/components/Chart";
+import { getServerSession } from "next-auth";
 
 interface urlForm {
     params: {
@@ -12,34 +13,41 @@ interface urlForm {
     }
 }
 
-const getToDoCount = async (year: number, month: number, day: number) => {
+export const findUser = async () => {
     const session = await getSession();
-    const exist = await db.toDo.count({
+    const data = await getServerSession();
+    const google_email = data?.user?.email;
+    const exist_info: {id?: number; email?: string} = {};  
+    if(session.id) exist_info.id = session.id;
+    if(google_email) exist_info.email = google_email; 
+
+    return exist_info;
+}
+
+const getToDoCount = async (year: number, month: number, day: number) => {
+    const user = await findUser();
+    const count = await db.toDo.count({
         where: {
             year,
             month,
             day,
             isComplete: false,
-            user: {
-                id: session.id
-            }
+            user
         }
     });
 
-    return exist;
+    return count;
 }
 
 const getCompleteCount = async (year: number, month: number, day: number) => {
-    const session = await getSession();
+    const user = await findUser();
     const count = await db.toDo.count({
         where: {
             year,
             month,
             day,
             isComplete: true,
-            user: {
-                id: session.id
-            }
+            user
         }
     });
 
@@ -47,12 +55,14 @@ const getCompleteCount = async (year: number, month: number, day: number) => {
 }
 
 export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
+    const user = await findUser();
     const count = await db.toDo.count({
         where: {
             type,
             year,
             month,
-            isComplete
+            isComplete,
+            user
         }
     });
 
