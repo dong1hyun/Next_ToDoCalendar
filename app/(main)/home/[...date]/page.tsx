@@ -1,6 +1,5 @@
 "use server"
 
-import { useState } from "react";
 import { Calendar } from "../../../components/calendar";
 import getSession from "@/app/lib/session";
 import db from "@/app/lib/db";
@@ -9,7 +8,7 @@ import { getServerSession } from "next-auth";
 
 interface urlForm {
     params: {
-        date: string[]
+        date: string[];
     }
 }
 
@@ -17,9 +16,9 @@ export const findUser = async () => {
     const session = await getSession();
     const data = await getServerSession();
     const google_email = data?.user?.email;
-    const exist_info: {id?: number; email?: string} = {};  
+    const exist_info: {id?: number; email?: string} = {};
     if(session.id) exist_info.id = session.id;
-    if(google_email) exist_info.email = google_email; 
+    if(google_email) exist_info.email = google_email;
 
     return exist_info;
 }
@@ -66,7 +65,7 @@ export const getTypeCount = async (type: string, year: number, month: number ,is
         }
     });
 
-    return count
+    return count;
 }
 
 export default async function home({ params }: urlForm) {

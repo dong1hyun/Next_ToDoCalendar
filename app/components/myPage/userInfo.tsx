@@ -1,5 +1,6 @@
 "use client"
 
+import { signOut, useSession } from "next-auth/react"
 import { logOut } from "../../(main)/myPage/action"
 
 interface userForm {
@@ -8,13 +9,16 @@ interface userForm {
 }
 
 export default function UserInfo({user}: {user:userForm}) {
+    const isGoogleLogin = useSession();
+    console.log(isGoogleLogin)
     return (
-        <div className="flex flex-col gap-4 mt-32">
+        <div className="flex flex-col items-start gap-4 mt-32">
             <div>이름: {user.username}</div>
             <div>이메일: {user.email}</div>
-            <form action={logOut}>
-                <button>로그아웃</button>
-            </form>
+            {isGoogleLogin.data ? <button onClick={() => signOut({ callbackUrl: "/" })} >로그아웃</button>
+                : <form action={logOut}>
+                    <button>로그아웃</button>
+                </form>}
         </div>
     )
 }

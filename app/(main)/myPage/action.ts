@@ -3,12 +3,16 @@
 import db from "@/app/lib/db"
 import getSession from "@/app/lib/session"
 import { redirect } from "next/navigation";
+import { find_userId } from "../toDos/[...date]/action";
+import { signOut } from "next-auth/react";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 
 export const getUserInfo = async () => {
-    const session = await getSession();
+    const id = await find_userId();
     const user = await db.user.findUnique({
         where: {
-            id: session.id
+            id
         },
         select: {
             username: true,

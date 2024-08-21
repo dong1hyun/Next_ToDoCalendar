@@ -3,6 +3,8 @@
 import db from "@/app/lib/db";
 import getSession from "@/app/lib/session";
 import { revalidateTag } from "next/cache";
+import { findUser } from "../../home/[...date]/page";
+import { getServerSession } from "next-auth";
 
 export interface formData{
     title: string,
@@ -10,8 +12,27 @@ export interface formData{
     type: string
 }
 
-export async function addToDo(toDo: formData, year: number, month: number, day: number) {
+export const find_userId = async () => {
     const session = await getSession();
+    const data = await getServerSession();
+    const google_email = data?.user?.email;
+    if (session.id) return session.id
+    if (google_email) {
+        const google_user = await db.user.findUnique({
+            where: {
+                email: google_email
+            },
+            select: {
+                id: true
+            }
+        });
+
+        return google_user?.id;
+    }
+}
+
+export async function addToDo(toDo: formData, year: number, month: number, day: number) {
+    const id = await find_userId();
     await db.toDo.create({
         data: {
             title: toDo.title,
@@ -22,23 +43,22 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             day,
             user: {
                 connect: {
-                    id: session.id
+                    id
                 }
             }
         }
     });
-    revalidateTag(`toDos-${session.id}`);
+    revalidateTag(`toDos-${id}`);
 }
 
-export async function getToDos(userId: number, year: number, month: number, day: number) {
+export async function getToDos(year: number, month: number, day: number) {
+    const user = await findUser();
     const toDos = await db.toDo.findMany({
         where: {
             year,
             month,
             day,
-            user: {
-                id: userId
-            }
+            user
         },
         orderBy: {
             created_at: "asc"
