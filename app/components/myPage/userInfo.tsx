@@ -10,7 +10,6 @@ interface userForm {
 
 export default function UserInfo({user}: {user:userForm}) {
     const isGoogleLogin = useSession();
-    console.log(isGoogleLogin)
     return (
         <div className="flex flex-col items-start gap-4 mt-32">
             <div>이름: {user.username}</div>

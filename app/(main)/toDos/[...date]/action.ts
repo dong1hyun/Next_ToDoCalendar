@@ -48,11 +48,11 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             }
         }
     });
-    revalidateTag(`toDos-${id}`);
+    revalidateTag(`toDos-${year}-${month}-${day}`);
 }
 
-export async function getToDos(year: number, month: number, day: number) {
-    const user = await findUser();
+export async function getToDos(user:{id?: number, email?: string},year: number, month: number, day: number) {
+    // const user2 = await findUser();
     const toDos = await db.toDo.findMany({
         where: {
             year,
@@ -68,7 +68,7 @@ export async function getToDos(year: number, month: number, day: number) {
     return toDos;
 }
 
-export const deleteToDo = async (id: number) => {
+export const deleteToDo = async (id: number, year: number, month: number, day: number) => {
     "use server"
     const session = await getSession();
     await db.toDo.delete({
@@ -76,10 +76,10 @@ export const deleteToDo = async (id: number) => {
             id
         }
     });
-    revalidateTag(`toDos-${session.id}`);
+    revalidateTag(`toDos-${year}-${month}-${day}`);
 }
 
-export const completeToDo = async (id: number) => {
+export const completeToDo = async (id: number, year: number, month: number, day: number) => {
     "use server"
     const session = await getSession();
     const toDo = await db.toDo.findUnique({
@@ -99,5 +99,5 @@ export const completeToDo = async (id: number) => {
         }
     });
 
-    revalidateTag(`toDos-${session.id}`);
+    revalidateTag(`toDos-${year}-${month}-${day}`);
 }
