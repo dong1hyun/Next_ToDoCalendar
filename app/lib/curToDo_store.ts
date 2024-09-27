@@ -1,26 +1,41 @@
 import { create } from "zustand";
 
 interface storeType {
+    curToDoId: number,
     year: number,
     month: number,
     day: number,
     title: string
     startTime: string,
-    setCurToDo: (title: string, year: number, month: number, day: number) => void
+    duration: string,
+    intervalId: number,
+    setCurToDo: (id: number, title: string, year: number, month: number, day: number) => void,
+    setDuration: (duration: string) => void,
+    setIntervalId: (intervalId: number) => void
 }
 
 const curToDo_store = create<storeType>((set) => ({
+    curToDoId: 0,
     year: 0,
     month: 0,
     day: 0,
     title: "없음",
     startTime: "",
-    setCurToDo: (title: string, year: number, month: number, day: number) => set(() => ({
+    duration: "",
+    intervalId: 0,
+    setCurToDo: (id: number, title: string, year: number, month: number, day: number) => set(() => ({
+        curToDoId: id,
         year,
         month,
         day,
         title,
-        startTime: new Date().toString()
+        startTime: new Date().toString(),
+    })),
+    setDuration: (duration: string) => set((state) => ({
+        ...state, duration
+    })),
+    setIntervalId: (intervalId: number) => set((state) => ({
+        ...state, intervalId
     }))
 }));
 

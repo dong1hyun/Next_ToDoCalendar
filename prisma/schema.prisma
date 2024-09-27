@@ -26,6 +26,7 @@ model ToDo {
   month Int
   day Int
   isComplete Boolean @default(false)
+  duration Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

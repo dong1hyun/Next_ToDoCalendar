@@ -18,15 +18,24 @@ interface toDosForm {
     month: number;
     day: number;
     isComplete: boolean;
+    duration: number;
     created_at: Date;
     updated_at: Date;
     userId: number;
 }
 
 export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm[], year: number, month: number, day: number }) {
-    const { setCurToDo } = curToDo_store();
-    const onPlayClick = (title: string) => {
-        setCurToDo(title, year, month, day);
+    const { curToDoId, setCurToDo, intervalId, setDuration } = curToDo_store();
+    const onPlayClick = (id: number, title: string) => {
+        setCurToDo(id, title, year, month, day);
+    }
+    const onCompleteClick = (id: number, year: number, month: number, day: number) => {
+        completeToDo(id, year, month, day);
+        if (id === curToDoId) {
+            setCurToDo(0, "없음", 0, 0, 0);
+            setDuration("");
+            clearInterval(intervalId);
+        }
     }
     return <AnimatePresence>
         <div className="flex flex-col gap-6 mt-10 last:mb-10">
@@ -43,8 +52,8 @@ export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm
                         <div className="border border-b -1 break-words" />
                         <div className="break-words">{toDo.description}</div>
                     </div>
-                    <button onClick={() => completeToDo(toDo.id, year, month, day)} className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>{toDo.isComplete ? "취소" : "완료"}</button>
-                    {toDo.isComplete ? null : <button onClick={() => onPlayClick(toDo.title)}><FaPlayCircle className="absolute right-2 top-1/2 size-5" /></button>}
+                    <button onClick={() => onCompleteClick(toDo.id, year, month, day)} className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>{toDo.isComplete ? "취소" : "완료"}</button>
+                    {toDo.isComplete ? null : <button onClick={() => onPlayClick(toDo.id, toDo.title)}><FaPlayCircle className="absolute right-2 top-1/2 size-5" /></button>}
                     <div className="absolute right-0 bottom-0 p-1 text-xs font-bold opacity-65">{formatToTimeAgo(date.toString())}</div>
                 </motion.div>
             }

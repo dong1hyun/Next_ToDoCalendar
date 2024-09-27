@@ -5,8 +5,9 @@ import getSession from "@/app/lib/session";
 import { revalidateTag } from "next/cache";
 import { findUser } from "../../home/[...date]/page";
 import { getServerSession } from "next-auth";
+import curToDo_store from "@/app/lib/curToDo_store";
 
-export interface formData{
+export interface formData {
     title: string,
     description: string,
     type: string
@@ -41,6 +42,7 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             year,
             month,
             day,
+            duration: 0,
             user: {
                 connect: {
                     id
@@ -51,7 +53,7 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
     revalidateTag(`toDos-${year}-${month}-${day}`);
 }
 
-export async function getToDos(user:{id?: number, email?: string},year: number, month: number, day: number) {
+export async function getToDos(user: { id?: number, email?: string }, year: number, month: number, day: number) {
     // const user2 = await findUser();
     const toDos = await db.toDo.findMany({
         where: {
@@ -81,7 +83,6 @@ export const deleteToDo = async (id: number, year: number, month: number, day: n
 
 export const completeToDo = async (id: number, year: number, month: number, day: number) => {
     "use server"
-    const session = await getSession();
     const toDo = await db.toDo.findUnique({
         where: {
             id
@@ -98,6 +99,6 @@ export const completeToDo = async (id: number, year: number, month: number, day:
             isComplete: !toDo?.isComplete
         }
     });
-
+    
     revalidateTag(`toDos-${year}-${month}-${day}`);
 }

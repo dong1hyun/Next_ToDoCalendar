@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 import { onDayClick } from "../(main)/home/[...date]/action";
 import { useRouter } from "next/navigation";
-import { CiBookmarkCheck } from "react-icons/ci";
 import { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
