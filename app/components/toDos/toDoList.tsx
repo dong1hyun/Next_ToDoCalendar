@@ -26,6 +26,18 @@ interface toDosForm {
 
 export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm[], year: number, month: number, day: number }) {
     const { curToDoId, setCurToDo, intervalId, setDuration } = curToDo_store();
+    // const [time, setTime] = useState("");
+    const setTime = (time: number) => {
+        const second = Math.floor(time / 1000);
+        const minutes = Math.floor(second / 60);
+        const hour = Math.floor(minutes / 60);
+        if (second < 60) return ("1분 미만");
+        else if (second < 60 * 60) {
+            return (`${minutes}분`);
+        } else {
+            return (`${hour}시간 ${minutes % 60}분`);
+        }
+    }
     const onPlayClick = (id: number, title: string) => {
         setCurToDo(id, title, year, month, day);
     }
@@ -52,7 +64,14 @@ export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm
                         <div className="border border-b -1 break-words" />
                         <div className="break-words">{toDo.description}</div>
                     </div>
-                    <button onClick={() => onCompleteClick(toDo.id, year, month, day)} className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>{toDo.isComplete ? "취소" : "완료"}</button>
+                    <div className="absolute left-0 bottom-0 p-1 text-xs font-bold">
+                        {toDo.id === curToDoId ? "진행중" : `${setTime(toDo.duration)} 진행`}
+                    </div>
+                    <button onClick={() => onCompleteClick(toDo.id, year, month, day)}
+                        className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} 
+                        rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>
+                        {toDo.isComplete ? "취소" : "완료"}
+                    </button>
                     {toDo.isComplete ? null : <button onClick={() => onPlayClick(toDo.id, toDo.title)}><FaPlayCircle className="absolute right-2 top-1/2 size-5" /></button>}
                     <div className="absolute right-0 bottom-0 p-1 text-xs font-bold opacity-65">{formatToTimeAgo(date.toString())}</div>
                 </motion.div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import curToDo_store from '../lib/curToDo_store';
 import { useRouter } from 'next/navigation';
 import axios from "axios"
+import { revalidateTag } from 'next/cache';
 
 const CurToDo: React.FC = () => {
   const { curToDoId, title, startTime, year, month, day, duration, setDuration, setIntervalId } = curToDo_store(); // 현재 실행중인 toDo
@@ -27,6 +28,7 @@ const CurToDo: React.FC = () => {
       id: curToDoId,
       duration
     });
+    revalidateTag(`toDos-${year}-${month}-${day}`);
   }
 
   const setCurrentTime = () => {
