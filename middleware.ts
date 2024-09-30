@@ -25,7 +25,6 @@ export async function middleware(req: NextRequest) {
         }
     } else { //로그인 상태
         if(exist) { //public에 접근
-            console.log(new Date().getDay())
             return NextResponse.redirect(new URL(`/home/${new Date().getFullYear()}/${new Date().getMonth() + 1}`, req.url));
         }
     }

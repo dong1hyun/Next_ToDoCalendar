@@ -10,7 +10,6 @@ export default function Login() {
     const [state, action] = useFormState(userLogIn, null);
     const date = new Date();
     const user = useSession();
-    console.log(user);
     return (
         <div className="flex flex-col justify-center items-center mt-36 text-black gap-3 ">
             <div className="flex flex-col gap-3 text-center">
@@ -26,7 +25,10 @@ export default function Login() {
                 <div className="my-6 h-px bg-neutral-500" />
             </form>
             <div className="flex text-white">
-                <div onClick={() => signIn("google", {callbackUrl: `/home/${date.getFullYear()}/${date.getMonth() + 1}`})} className="w-[350px] flex items-center justify-center cursor-pointer bg-blue-700 h-10 rounded-md hover:bg-blue-600"><FcGoogle className="size-5"/>continue with google</div>
+                <div onClick={() => signIn("google", { callbackUrl: `/home/${date.getFullYear()}/${date.getMonth() + 1}` })}
+                    className="w-[350px] flex items-center justify-center cursor-pointer bg-blue-700 h-10 rounded-md hover:bg-blue-600">
+                    <FcGoogle className="size-5" />continue with google
+                </div>
             </div>
         </div>
     )
