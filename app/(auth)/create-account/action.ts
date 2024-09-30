@@ -86,5 +86,5 @@ export const create_account = async (prev: any, formData: FormData) => {
     await session.save();
 
     const curDate = new Date();
-    redirect(`/home/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
+    // redirect(`/home/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
 }
