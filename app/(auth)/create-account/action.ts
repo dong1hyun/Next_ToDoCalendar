@@ -66,6 +66,7 @@ export const create_account = async (prev: any, formData: FormData) => {
         password: formData.get("password"),
         confirm_password: formData.get("confirm_password")
     };
+    console.log(data);
     const result = await userFormSchema.safeParseAsync(data);
     if (!result.success) return result.error.flatten();
     const hashedPassword = await bcrypt.hash(result.data.password, 12);
@@ -86,5 +87,6 @@ export const create_account = async (prev: any, formData: FormData) => {
     await session.save();
 
     const curDate = new Date();
-    // redirect(`/home/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
+    console.log("create account");
+    redirect(`/home/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
 }
