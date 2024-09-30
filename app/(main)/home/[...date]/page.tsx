@@ -13,6 +13,7 @@ interface urlForm {
 }
 
 export const findUser = async () => {
+    console.log("findUser");
     const session = await getSession();
     const data = await getServerSession();
     const google_email = data?.user?.email;
@@ -23,6 +24,7 @@ export const findUser = async () => {
 }
 
 const getToDoCount = async (year: number, month: number, day: number) => {
+    console.log("getToDoCount");
     const user = await findUser();
     const count = await db.toDo.count({
         where: {
@@ -38,6 +40,7 @@ const getToDoCount = async (year: number, month: number, day: number) => {
 }
 
 const getCompleteCount = async (year: number, month: number, day: number) => {
+    console.log("getCompleteCount");
     const user = await findUser();
     const count = await db.toDo.count({
         where: {
@@ -53,6 +56,7 @@ const getCompleteCount = async (year: number, month: number, day: number) => {
 }
 
 export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
+    console.log("getTypeCount");
     const user = await findUser();
     const count = await db.toDo.count({
         where: {
