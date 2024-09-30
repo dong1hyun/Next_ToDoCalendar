@@ -20,6 +20,7 @@ export const findUser = async () => {
     const exist_info: {id?: number; email?: string} = {};
     if(session.id) exist_info.id = session.id;
     if(google_email) exist_info.email = google_email;
+    console.log("findUser End");
     return exist_info;
 }
 
@@ -35,7 +36,8 @@ const getToDoCount = async (year: number, month: number, day: number) => {
             user
         }
     });
-
+    console.log("getToDoCount End");
+    
     return count;
 }
 
@@ -51,6 +53,7 @@ const getCompleteCount = async (year: number, month: number, day: number) => {
             user
         }
     });
+    console.log("getCompleteCount End");
 
     return count;
 }
@@ -67,6 +70,7 @@ export const getTypeCount = async (type: string, year: number, month: number ,is
             user
         }
     });
+    console.log("getTypeCount End");
 
     return count;
 }
