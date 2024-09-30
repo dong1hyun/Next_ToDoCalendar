@@ -68,7 +68,7 @@ export const getTypeCount = async (type: string, year: number, month: number ,is
     return count;
 }
 
-export default async function home({ params }: urlForm) {
+export default async function Home({ params }: urlForm) {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     const year = +params.date[0];
     const month = +params.date[1];

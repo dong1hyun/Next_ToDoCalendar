@@ -4,7 +4,7 @@ import { Error, inputForm } from "@/app/components/auth";
 import { useFormState } from "react-dom";
 import { create_account } from "./action";
 
-export default function createAccount() {
+export default function CreateAccount() {
     const [state, action] = useFormState(create_account, null);
     return (
         <div className="flex flex-col items-center mt-36 text-black gap-3">

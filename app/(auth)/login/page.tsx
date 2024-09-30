@@ -3,11 +3,11 @@
 import { Error, inputForm } from "@/app/components/auth";
 import { useFormState } from "react-dom";
 import { FcGoogle } from "react-icons/fc";
-import { Login } from "./action";
+import { userLogIn } from "./action";
 import { signIn, useSession } from "next-auth/react";
 
-export default function login() {
-    const [state, action] = useFormState(Login, null);
+export default function Login() {
+    const [state, action] = useFormState(userLogIn, null);
     const date = new Date();
     const user = useSession();
     console.log(user);
