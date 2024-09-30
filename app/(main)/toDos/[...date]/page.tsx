@@ -16,7 +16,7 @@ interface paramsForm {
 export default async function ToDos({ params }: paramsForm) {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
   const date = params.date;
-  const getCachedToDos = nextCache(getToDos, [`toDos-${date[0]}-${date[1]}-${date[2]}`], { tags: [`toDos-${date[0]}-${date[1]}-${date[2]}`] });
+  const getCachedToDos = nextCache(getToDos, [`toDos-${date[0]}-${date[1]}-${date[2]}`], { tags: [`toDos-${date[0]}-${date[1]}-${date[2]}`], revalidate: 30 });
   const user = await findUser();
   const toDos = await getCachedToDos(user, +date[0], +date[1], +date[2]);
   return (

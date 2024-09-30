@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import curToDo_store from '../lib/curToDo_store';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import axios from "axios"
 import { revalidateTag } from 'next/cache';
 
 const CurToDo: React.FC = () => {
   const { curToDoId, title, startTime, year, month, day, duration, setDuration, setIntervalId } = curToDo_store(); // 현재 실행중인 toDo
+  const { date } = useParams();
+  // console.log(`toDos-${date[0]}-${date[1]}-${date[2]}`)
   const [prevDuration, setPrevDuration] = useState(0); // 과거의 toDo 경과 시간
   const isMounted = useRef(false);
   const getDuration = async (id: number) => { // 과거의 toDo 경과 시간을 가져옴
@@ -26,9 +28,8 @@ const CurToDo: React.FC = () => {
   const updateDuration = async (duration: number) => { //경과 시간 업데이트
     await axios.post('/api/duration', {
       id: curToDoId,
-      duration
+      duration,
     });
-    revalidateTag(`toDos-${year}-${month}-${day}`);
   }
 
   const setCurrentTime = () => {

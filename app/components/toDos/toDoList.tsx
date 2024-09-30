@@ -26,7 +26,6 @@ interface toDosForm {
 
 export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm[], year: number, month: number, day: number }) {
     const { curToDoId, setCurToDo, intervalId, setDuration } = curToDo_store();
-    // const [time, setTime] = useState("");
     const setTime = (time: number) => {
         const second = Math.floor(time / 1000);
         const minutes = Math.floor(second / 60);

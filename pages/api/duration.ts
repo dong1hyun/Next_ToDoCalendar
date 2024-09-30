@@ -11,7 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         duration
       }
     });
-    // 데이터베이스 업데이트 또는 다른 작업 수행
     res.status(200).json({ message: 'Duration updated successfully', duration });
   } 
   if (req.method === 'GET') {
@@ -31,6 +30,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } catch(error) {
 
     }
-    // 데이터베이스 업데이트 또는 다른 작업 수행
   }
 }
