@@ -68,26 +68,36 @@ export default async function Home({ params }: urlForm) {
     const year = +params.date[0];
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
-    const toDoCount: number[] = Array(limit).fill(0);
-    const completeCount: number[] = Array(limit).fill(0);
+    const toDoCount: number[] = [
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0
+      ]
+    const completeCount: number[] = [
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0
+      ]
     const user = await findUser();
     console.log("월, 달", year, month);
     console.log("limit", limit);
     try {
-        const counts = await db.toDo.findMany({
-            where: {
-                year,
-                month,
-                user,
-            },
-        });
-        counts.forEach((item) => {
-            if (item.isComplete) {
-                completeCount[item.day - 1]++;
-            } else {
-                toDoCount[item.day - 1]++;
-            }
-        });
+        // const counts = await db.toDo.findMany({
+        //     where: {
+        //         year,
+        //         month,
+        //         user,
+        //     },
+        // });
+        // counts.forEach((item) => {
+        //     if (item.isComplete) {
+        //         completeCount[item.day - 1]++;
+        //     } else {
+        //         toDoCount[item.day - 1]++;
+        //     }
+        // });
         console.log("result: ", toDoCount, completeCount);
     } catch (error) {
         console.error("count 에러:", error);
