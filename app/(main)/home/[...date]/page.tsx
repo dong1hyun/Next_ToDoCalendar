@@ -164,7 +164,7 @@ export default async function Home({ params }: urlForm) {
             <div className="flex flex-col items-center mt-6">
                 <h1 className="text-xl font-bold">당월 할 일 차트</h1>
                 <div className="w-80 h-80">
-                    {/* <MyResponsivePie data={data} colors={['#c56cf0', '#706fd3', '#34ace0', '#ff793f', '#e74c3c']} /> */}
+                    <MyResponsivePie data={data} colors={['#c56cf0', '#706fd3', '#34ace0', '#ff793f', '#e74c3c']} />
                 </div>
             </div>
         </div>
