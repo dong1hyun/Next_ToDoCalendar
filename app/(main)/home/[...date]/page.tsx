@@ -110,9 +110,19 @@ export default async function Home({ params }: urlForm) {
             }
         });
         console.log(counts);
-        // counts.forEach((item) => {
-        //     if(ite)
-        // })
+        counts.forEach((item) => {
+            if(item.type == "업무") {
+                typeCount.work++;
+            } else if(item.type == "지인") {
+                typeCount.friend++;
+            } else if(item.type == "개인") {
+                typeCount.individual++;
+            } else if(item.type == "교육") {
+                typeCount.education++;
+            } else {
+                typeCount.social++;
+            }
+        })
     } catch(error) {
         console.error("type count 에러:", error);
     }
@@ -121,33 +131,33 @@ export default async function Home({ params }: urlForm) {
     // const individual = await getTypeCount("개인", year, month, false);
     // const education = await getTypeCount("교육", year, month, false);
     // const social = await getTypeCount("사회활동", year, month, false);
-    // const data = [
-    //     {
-    //         "id": "업무",
-    //         "label": "업무",
-    //         "value": work,
-    //     },
-    //     {
-    //         "id": "지인",
-    //         "label": "지인",
-    //         "value": friend,
-    //     },
-    //     {
-    //         "id": "개인",
-    //         "label": "개인",
-    //         "value": individual,
-    //     },
-    //     {
-    //         "id": "교육",
-    //         "label": "교육",
-    //         "value": education,
-    //     },
-    //     {
-    //         "id": "사회활동",
-    //         "label": "사회활동",
-    //         "value": social,
-    //     },
-    // ]
+    const data = [
+        {
+            "id": "업무",
+            "label": "업무",
+            "value": typeCount.work,
+        },
+        {
+            "id": "지인",
+            "label": "지인",
+            "value": typeCount.friend,
+        },
+        {
+            "id": "개인",
+            "label": "개인",
+            "value": typeCount.individual,
+        },
+        {
+            "id": "교육",
+            "label": "교육",
+            "value": typeCount.education,
+        },
+        {
+            "id": "사회활동",
+            "label": "사회활동",
+            "value": typeCount.social,
+        },
+    ]
     return (
         <div className="h-screen flex flex-col xl:flex-row justify-center items-center pt-24 xl:pt-0">
             <Calendar toDoCount={toDoCount} completeCount={completeCount} />
