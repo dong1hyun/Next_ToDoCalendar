@@ -67,18 +67,10 @@ export default async function Home({ params }: urlForm) {
     const year = +params.date[0];
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
-    const toDoCount: number[] = [
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0
-      ];
-    const completeCount: number[] = [
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0
-      ];
+    const toDoCountPromises = [];
+    const completeCountPromises = [];
+    let toDoCount: number[] = [];
+    let completeCount: number[] = [];
     const user = await findUser();
     console.log("월, 달", year, month);
     
@@ -90,10 +82,16 @@ export default async function Home({ params }: urlForm) {
         //     const count2 = await getCompleteCount(year, month, i, user);
         //     completeCount.push(count2);
         // }
+        for (let i = 1; i <= limit; i++) {
+            toDoCountPromises.push(getToDoCount(year, month, i, user));
+            completeCountPromises.push(getCompleteCount(year, month, i, user));
+        }
+
+        toDoCount = await Promise.all(toDoCountPromises);
+        completeCount = await Promise.all(completeCountPromises);
     } catch (error) {
         console.error("count 에러:", error);
     }
-    console.log("ㅊㅊㅊㅊㅊㅊ")
     console.log("count", toDoCount, completeCount);
     const work = await getTypeCount("업무", year, month, false);
     const friend = await getTypeCount("지인", year, month, false);
