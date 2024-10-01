@@ -12,55 +12,55 @@ interface urlForm {
     }
 }
 
-export const findUser = async () => {
-    const session = await getSession();
-    const data = await getServerSession();
-    const google_email = data?.user?.email;
-    const exist_info: {id?: number; email?: string} = {};
-    if(session.id) exist_info.id = session.id;
-    if(google_email) exist_info.email = google_email;
-    return exist_info;
-}
+// export const findUser = async () => {
+//     const session = await getSession();
+//     const data = await getServerSession();
+//     const google_email = data?.user?.email;
+//     const exist_info: {id?: number; email?: string} = {};
+//     if(session.id) exist_info.id = session.id;
+//     if(google_email) exist_info.email = google_email;
+//     return exist_info;
+// }
 
-const getToDoCount = async (year: number, month: number, day: number, user: any) => {
-    const count = await db.toDo.count({
-        where: {
-            year,
-            month,
-            day,
-            isComplete: false,
-            user
-        }
-    });
-    return count;
-}
+// const getToDoCount = async (year: number, month: number, day: number, user: any) => {
+//     const count = await db.toDo.count({
+//         where: {
+//             year,
+//             month,
+//             day,
+//             isComplete: false,
+//             user
+//         }
+//     });
+//     return count;
+// }
 
-const getCompleteCount = async (year: number, month: number, day: number, user: any) => {
-    const count = await db.toDo.count({
-        where: {
-            year,
-            month,
-            day,
-            isComplete: true,
-            user
-        }
-    });
-    return count;
-}
+// const getCompleteCount = async (year: number, month: number, day: number, user: any) => {
+//     const count = await db.toDo.count({
+//         where: {
+//             year,
+//             month,
+//             day,
+//             isComplete: true,
+//             user
+//         }
+//     });
+//     return count;
+// }
 
-export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
-    const user = await findUser();
-    const count = await db.toDo.count({
-        where: {
-            type,
-            year,
-            month,
-            isComplete,
-            user
-        }
-    });
-    return count;
-}
+// export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
+//     const user = await findUser();
+//     const count = await db.toDo.count({
+//         where: {
+//             type,
+//             year,
+//             month,
+//             isComplete,
+//             user
+//         }
+//     });
+//     return count;
+// }
 
 export default async function Home({ params }: urlForm) {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
