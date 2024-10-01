@@ -82,12 +82,15 @@ export default async function Home({ params }: urlForm) {
             completeCountPromises.push(getCompleteCount(year, month, i, user));
         }
 
+        console.log("promise 시작 전");
         toDoCount = await Promise.all(toDoCountPromises);
         completeCount = await Promise.all(completeCountPromises);
+        console.log("count1", toDoCount, completeCount);
+
     } catch (error) {
         console.error("count 에러:", error);
     }
-    console.log("count", toDoCount, completeCount);
+    console.log("count2", toDoCount, completeCount);
     const work = await getTypeCount("업무", year, month, false);
     const friend = await getTypeCount("지인", year, month, false);
     const individual = await getTypeCount("개인", year, month, false);
