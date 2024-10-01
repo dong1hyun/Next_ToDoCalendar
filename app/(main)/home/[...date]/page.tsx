@@ -80,7 +80,7 @@ export default async function Home({ params }: urlForm) {
         0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0
       ]
-    const user = await findUser();
+    // const user = await findUser();
     console.log("월, 달", year, month);
     console.log("limit", limit);
     try {
