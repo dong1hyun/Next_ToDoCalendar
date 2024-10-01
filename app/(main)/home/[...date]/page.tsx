@@ -13,14 +13,12 @@ interface urlForm {
 }
 
 export const findUser = async () => {
-    console.log("findUser");
     const session = await getSession();
     const data = await getServerSession();
     const google_email = data?.user?.email;
     const exist_info: {id?: number; email?: string} = {};
     if(session.id) exist_info.id = session.id;
     if(google_email) exist_info.email = google_email;
-    console.log("findUser End", exist_info);
     return exist_info;
 }
 
@@ -73,12 +71,17 @@ export default async function Home({ params }: urlForm) {
     const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = [];
     const completeCount: number[] = [];
-    for (let i = 1; i <= limit; i++) {
-        const count = await getToDoCount(year, month, i);
-        toDoCount.push(count);
-        const count2 = await getCompleteCount(year, month, i);
-        completeCount.push(count2);
+    try {
+        for (let i = 1; i <= limit; i++) {
+            const count = await getToDoCount(year, month, i);
+            toDoCount.push(count);
+            const count2 = await getCompleteCount(year, month, i);
+            completeCount.push(count2);
+        }
+    } catch (error) {
+        console.error("count 에러:", error);
     }
+
     console.log("count", toDoCount, completeCount);
     const work = await getTypeCount("업무", year, month, false);
     const friend = await getTypeCount("지인", year, month, false);
