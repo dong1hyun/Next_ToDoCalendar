@@ -71,8 +71,10 @@ export default async function Home({ params }: urlForm) {
     const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = [];
     const completeCount: number[] = [];
+    console.log(limit);
     try {
         for (let i = 1; i <= limit; i++) {
+            console.log(i);
             const count = await getToDoCount(year, month, i);
             toDoCount.push(count);
             const count2 = await getCompleteCount(year, month, i);
@@ -81,7 +83,7 @@ export default async function Home({ params }: urlForm) {
     } catch (error) {
         console.error("count 에러:", error);
     }
-
+    console.log("ㅊㅊㅊㅊㅊㅊ")
     console.log("count", toDoCount, completeCount);
     const work = await getTypeCount("업무", year, month, false);
     const friend = await getTypeCount("지인", year, month, false);
