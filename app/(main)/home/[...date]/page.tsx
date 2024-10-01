@@ -23,6 +23,7 @@ export const findUser = async () => {
 }
 
 const getToDoCount = async (year: number, month: number, day: number, user: any) => {
+    console.log("day:", day);
     const count = await db.toDo.count({
         where: {
             year,
@@ -75,31 +76,16 @@ export default async function Home({ params }: urlForm) {
     console.log("월, 달", year, month);
     console.log("limit", limit);
     try {
-        for(let i = 1; i <= 10; i++) {
-            console.log(i);
-            await db.toDo.count({
-                where: {
-                    year,
-                    month,
-                    day: 1,
-                    isComplete: false,
-                    user
-                }
-            });
+        console.log("반복문 시작");
+        for (let i = 1; i <= limit; i++) {
+            toDoCountPromises.push(getToDoCount(year, month, i, user));
+            completeCountPromises.push(getCompleteCount(year, month, i, user));
         }
-
-        console.log(test);
-        // console.log("반복문 시작");
-        // for (let i = 1; i <= limit; i++) {
-        //     console.log(i);
-        //     toDoCountPromises.push(getToDoCount(year, month, i, user));
-        //     completeCountPromises.push(getCompleteCount(year, month, i, user));
-        // }
-
-        // console.log("promise 시작 전");
-        // toDoCount = await Promise.all(toDoCountPromises);
-        // completeCount = await Promise.all(completeCountPromises);
-        // console.log("count1", toDoCount, completeCount);
+        console.log("반복문 끝");
+        console.log("promise 시작 전");
+        toDoCount = await Promise.all(toDoCountPromises);
+        completeCount = await Promise.all(completeCountPromises);
+        console.log("count1", toDoCount, completeCount);
 
     } catch (error) {
         console.error("count 에러:", error);
