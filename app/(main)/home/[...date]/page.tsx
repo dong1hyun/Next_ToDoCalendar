@@ -22,8 +22,7 @@ export const findUser = async () => {
     return exist_info;
 }
 
-const getToDoCount = async (year: number, month: number, day: number) => {
-    const user = await findUser();
+const getToDoCount = async (year: number, month: number, day: number, user: any) => {
     const count = await db.toDo.count({
         where: {
             year,
@@ -36,8 +35,7 @@ const getToDoCount = async (year: number, month: number, day: number) => {
     return count;
 }
 
-const getCompleteCount = async (year: number, month: number, day: number) => {
-    const user = await findUser();
+const getCompleteCount = async (year: number, month: number, day: number, user: any) => {
     const count = await db.toDo.count({
         where: {
             year,
@@ -71,13 +69,14 @@ export default async function Home({ params }: urlForm) {
     const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = [];
     const completeCount: number[] = [];
+    const user = await findUser();
     console.log(limit);
     try {
         for (let i = 1; i <= limit; i++) {
             console.log(i);
-            const count = await getToDoCount(year, month, i);
+            const count = await getToDoCount(year, month, i, user);
             toDoCount.push(count);
-            const count2 = await getCompleteCount(year, month, i);
+            const count2 = await getCompleteCount(year, month, i, user);
             completeCount.push(count2);
         }
     } catch (error) {
