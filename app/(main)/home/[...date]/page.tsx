@@ -73,15 +73,9 @@ export default async function Home({ params }: urlForm) {
     let completeCount: number[] = [];
     const user = await findUser();
     console.log("월, 달", year, month);
-    
+    console.log("limit", limit);
     try {
-        // for (let i = 1; i <= limit; i++) {
-        //     console.log(i);
-        //     const count = await getToDoCount(year, month, i, user);
-        //     toDoCount.push(count);
-        //     const count2 = await getCompleteCount(year, month, i, user);
-        //     completeCount.push(count2);
-        // }
+        console.log("반복문 시작");
         for (let i = 1; i <= limit; i++) {
             console.log(i);
             toDoCountPromises.push(getToDoCount(year, month, i, user));
