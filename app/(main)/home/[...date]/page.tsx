@@ -75,15 +75,18 @@ export default async function Home({ params }: urlForm) {
     console.log("월, 달", year, month);
     console.log("limit", limit);
     try {
-        const test = await db.toDo.count({
-            where: {
-                year,
-                month,
-                day: 1,
-                isComplete: false,
-                user
-            }
-        });
+        for(let i = 1; i <= 10; i++) {
+            console.log(i);
+            await db.toDo.count({
+                where: {
+                    year,
+                    month,
+                    day: 1,
+                    isComplete: false,
+                    user
+                }
+            });
+        }
 
         console.log(test);
         // console.log("반복문 시작");
