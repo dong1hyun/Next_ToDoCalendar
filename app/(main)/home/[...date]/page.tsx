@@ -69,28 +69,30 @@ export default async function Home({ params }: urlForm) {
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
     const toDoCountPromises = [];
-    const completeCountPromises = [];
     let toDoCount: number[] = [];
     let completeCount: number[] = [];
     const user = await findUser();
     console.log("월, 달", year, month);
     console.log("limit", limit);
     try {
-        console.log("반복문 시작");
-        for (let i = 1; i <= limit; i++) {
-            toDoCountPromises.push(getToDoCount(year, month, i, user));
-            completeCountPromises.push(getCompleteCount(year, month, i, user));
-        }
-        console.log("반복문 끝");
-        console.log("promise 시작 전");
-        toDoCount = await Promise.all(toDoCountPromises);
-        completeCount = await Promise.all(completeCountPromises);
-        console.log("count1", toDoCount, completeCount);
-
+        const counts = await db.toDo.findMany({
+            where: {
+                year,
+                month,
+                user,
+            },
+        });
+        counts.forEach((item) => {
+            if (item.isComplete) {
+                completeCount[item.day - 1]++;
+            } else {
+                toDoCount[item.day - 1]++;
+            }
+        });
+        console.log("result: ", toDoCount, completeCount)
     } catch (error) {
         console.error("count 에러:", error);
     }
-    console.log("count2", toDoCount, completeCount);
     const work = await getTypeCount("업무", year, month, false);
     const friend = await getTypeCount("지인", year, month, false);
     const individual = await getTypeCount("개인", year, month, false);
