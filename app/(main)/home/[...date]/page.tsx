@@ -68,9 +68,8 @@ export default async function Home({ params }: urlForm) {
     const year = +params.date[0];
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
-    const toDoCountPromises = [];
-    let toDoCount: number[] = [];
-    let completeCount: number[] = [];
+    const toDoCount: number[] = Array(limit).fill(0);
+    const completeCount: number[] = Array(limit).fill(0);
     const user = await findUser();
     console.log("월, 달", year, month);
     console.log("limit", limit);
@@ -89,7 +88,7 @@ export default async function Home({ params }: urlForm) {
                 toDoCount[item.day - 1]++;
             }
         });
-        console.log("result: ", toDoCount, completeCount)
+        console.log("result: ", toDoCount, completeCount);
     } catch (error) {
         console.error("count 에러:", error);
     }
