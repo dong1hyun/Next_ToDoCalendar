@@ -83,6 +83,7 @@ export default async function Home({ params }: urlForm) {
         //     completeCount.push(count2);
         // }
         for (let i = 1; i <= limit; i++) {
+            console.log(i);
             toDoCountPromises.push(getToDoCount(year, month, i, user));
             completeCountPromises.push(getCompleteCount(year, month, i, user));
         }
