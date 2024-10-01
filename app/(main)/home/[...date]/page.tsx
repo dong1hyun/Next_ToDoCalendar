@@ -25,7 +25,6 @@ export const findUser = async () => {
 }
 
 const getToDoCount = async (year: number, month: number, day: number) => {
-    console.log("getToDoCount");
     const user = await findUser();
     const count = await db.toDo.count({
         where: {
@@ -36,13 +35,10 @@ const getToDoCount = async (year: number, month: number, day: number) => {
             user
         }
     });
-    console.log("getToDoCount End", count);
-    
     return count;
 }
 
 const getCompleteCount = async (year: number, month: number, day: number) => {
-    console.log("getCompleteCount");
     const user = await findUser();
     const count = await db.toDo.count({
         where: {
@@ -53,13 +49,10 @@ const getCompleteCount = async (year: number, month: number, day: number) => {
             user
         }
     });
-    console.log("getCompleteCount End", count);
-
     return count;
 }
 
 export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
-    console.log("getTypeCount");
     const user = await findUser();
     const count = await db.toDo.count({
         where: {
@@ -70,8 +63,6 @@ export const getTypeCount = async (type: string, year: number, month: number ,is
             user
         }
     });
-    console.log("getTypeCount End", count);
-
     return count;
 }
 
@@ -88,6 +79,7 @@ export default async function Home({ params }: urlForm) {
         const count2 = await getCompleteCount(year, month, i);
         completeCount.push(count2);
     }
+    console.log("count", toDoCount, completeCount);
     const work = await getTypeCount("업무", year, month, false);
     const friend = await getTypeCount("지인", year, month, false);
     const individual = await getTypeCount("개인", year, month, false);
