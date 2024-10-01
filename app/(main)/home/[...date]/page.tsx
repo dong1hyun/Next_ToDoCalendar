@@ -22,32 +22,32 @@ export const findUser = async () => {
     return exist_info;
 }
 
-const getToDoCount = async (year: number, month: number, day: number, user: any) => {
-    console.log("day:", day);
-    const count = await db.toDo.count({
-        where: {
-            year,
-            month,
-            day,
-            isComplete: false,
-            user
-        }
-    });
-    return count;
-}
+// const getToDoCount = async (year: number, month: number, day: number, user: any) => {
+//     console.log("day:", day);
+//     const count = await db.toDo.count({
+//         where: {
+//             year,
+//             month,
+//             day,
+//             isComplete: false,
+//             user
+//         }
+//     });
+//     return count;
+// }
 
-const getCompleteCount = async (year: number, month: number, day: number, user: any) => {
-    const count = await db.toDo.count({
-        where: {
-            year,
-            month,
-            day,
-            isComplete: true,
-            user
-        }
-    });
-    return count;
-}
+// const getCompleteCount = async (year: number, month: number, day: number, user: any) => {
+//     const count = await db.toDo.count({
+//         where: {
+//             year,
+//             month,
+//             day,
+//             isComplete: true,
+//             user
+//         }
+//     });
+//     return count;
+// }
 
 export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
     const user = await findUser();
@@ -70,6 +70,13 @@ export default async function Home({ params }: urlForm) {
     const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = Array(limit).fill(0);
     const completeCount: number[] = Array(limit).fill(0);
+    const typeCount = {
+        work: 0,
+        friend: 0,
+        individual: 0,
+        education: 0,
+        social: 0
+    }
     const user = await findUser();
     console.log("월, 달", year, month);
     console.log("limit", limit);
@@ -90,7 +97,24 @@ export default async function Home({ params }: urlForm) {
         });
         console.log("result: ", toDoCount, completeCount);
     } catch (error) {
-        console.error("count 에러:", error);
+        console.error("toDo count 에러:", error);
+    }
+
+    try {
+        const counts = await db.toDo.findMany({
+            where: {
+                year,
+                month,
+                isComplete: false,
+                user
+            }
+        });
+        console.log(counts);
+        // counts.forEach((item) => {
+        //     if(ite)
+        // })
+    } catch(error) {
+        console.error("type count 에러:", error);
     }
     // const work = await getTypeCount("업무", year, month, false);
     // const friend = await getTypeCount("지인", year, month, false);
