@@ -70,7 +70,7 @@ export default async function Home({ params }: urlForm) {
     const toDoCount: number[] = [];
     const completeCount: number[] = [];
     const user = await findUser();
-    console.log(limit);
+    console.log("월, 달", year, month);
     try {
         for (let i = 1; i <= limit; i++) {
             console.log(i);
