@@ -22,33 +22,6 @@ export const findUser = async () => {
     return exist_info;
 }
 
-// const getToDoCount = async (year: number, month: number, day: number, user: any) => {
-//     console.log("day:", day);
-//     const count = await db.toDo.count({
-//         where: {
-//             year,
-//             month,
-//             day,
-//             isComplete: false,
-//             user
-//         }
-//     });
-//     return count;
-// }
-
-// const getCompleteCount = async (year: number, month: number, day: number, user: any) => {
-//     const count = await db.toDo.count({
-//         where: {
-//             year,
-//             month,
-//             day,
-//             isComplete: true,
-//             user
-//         }
-//     });
-//     return count;
-// }
-
 export const getTypeCount = async (type: string, year: number, month: number ,isComplete: boolean) => {
     const user = await findUser();
     const count = await db.toDo.count({
@@ -78,8 +51,6 @@ export default async function Home({ params }: urlForm) {
         social: 0
     }
     const user = await findUser();
-    console.log("월, 달", year, month);
-    console.log("limit", limit);
     try {
         const counts = await db.toDo.findMany({
             where: {
@@ -95,7 +66,6 @@ export default async function Home({ params }: urlForm) {
                 toDoCount[item.day - 1]++;
             }
         });
-        console.log("result: ", toDoCount, completeCount);
     } catch (error) {
         console.error("toDo count 에러:", error);
     }
@@ -109,7 +79,6 @@ export default async function Home({ params }: urlForm) {
                 user
             }
         });
-        console.log(counts);
         counts.forEach((item) => {
             if(item.type == "업무") {
                 typeCount.work++;
@@ -126,11 +95,6 @@ export default async function Home({ params }: urlForm) {
     } catch(error) {
         console.error("type count 에러:", error);
     }
-    // const work = await getTypeCount("업무", year, month, false);
-    // const friend = await getTypeCount("지인", year, month, false);
-    // const individual = await getTypeCount("개인", year, month, false);
-    // const education = await getTypeCount("교육", year, month, false);
-    // const social = await getTypeCount("사회활동", year, month, false);
     const data = [
         {
             "id": "업무",
@@ -159,7 +123,7 @@ export default async function Home({ params }: urlForm) {
         },
     ]
     return (
-        <div className="h-screen flex flex-col xl:flex-row justify-center items-center pt-24 xl:pt-0">
+        <div className="flex flex-col xl:flex-row justify-center items-center">
             <Calendar toDoCount={toDoCount} completeCount={completeCount} />
             <div className="flex flex-col items-center mt-6">
                 <h1 className="text-xl font-bold">당월 할 일 차트</h1>

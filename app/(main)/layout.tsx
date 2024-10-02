@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     return (
         <div className="flex flex-col items-center">
-            <div className="font-dh fixed top-0 z-20 flex justify-between items-center bg-neutral-300 h-14 w-full pr-5">
+            <div className="font-dh z-20 flex justify-between items-center bg-neutral-300 h-14 w-full pr-5">
                 <BackToCalendar />
                 <div className="flex-grow" />
                 <CurToDo />

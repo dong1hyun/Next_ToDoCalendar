@@ -6,7 +6,7 @@ const MyResponsivePie = ({ data, colors }: any) => (
     <>
         <ResponsivePie
             data={data}
-            margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+            margin={{ top: 10, right: 80, bottom: 80, left: 80 }}
             colors={colors}
             innerRadius={0.5}
             padAngle={0.7}
@@ -45,7 +45,7 @@ const MyResponsivePie = ({ data, colors }: any) => (
                     translateY: 56,
                     itemsSpacing: 0,
                     itemWidth: 60,
-                    itemHeight: 18,
+                    itemHeight: 100,
                     itemTextColor: '#999',
                     itemDirection: 'left-to-right',
                     itemOpacity: 1,
