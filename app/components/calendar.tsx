@@ -87,7 +87,7 @@ export function Calendar({ toDoCount, completeCount }: { toDoCount: number[], co
     }
 
     return (
-        <div className="relative flex items-center w-[360px] sm:w-[450px] md:w-[600px] justify-center px-4 mt-12">
+        <div className="relative flex items-center w-[360px] sm:w-[450px] md:w-[600px] justify-center px-4 mt-12 xl:mt-32">
             <div className="bg-white p-4 rounded-lg shadow-2xl w-[600px]">
                 <div className="text-center text-xl font-bold mb-4 flex justify-center items-center">
                     {showDate ? (
