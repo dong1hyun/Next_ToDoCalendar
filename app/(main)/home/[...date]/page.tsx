@@ -123,9 +123,9 @@ export default async function Home({ params }: urlForm) {
         },
     ]
     return (
-        <div className="flex flex-col xl:flex-row justify-center items-center xl:items-end">
+        <div className="flex flex-col xl:flex-row justify-center items-center xl:gap-5">
             <Calendar toDoCount={toDoCount} completeCount={completeCount} />
-            <div className="flex flex-col items-center mt-6">
+            <div className="flex flex-col items-center mt-12 xl:mt-32">
                 <h1 className="text-xl font-bold">당월 할 일 차트</h1>
                 <div className="w-80 h-80">
                     <MyResponsivePie data={data} colors={['#c56cf0', '#706fd3', '#34ace0', '#ff793f', '#e74c3c']} />

@@ -2,6 +2,7 @@
 
 import { signOut, useSession } from "next-auth/react"
 import { logOut } from "../../(main)/myPage/action"
+import { buttonStyle } from "@/app/lib/css";
 
 interface userForm {
     username: string,
@@ -16,7 +17,7 @@ export default function UserInfo({user}: {user:userForm}) {
             <div>이메일: {user.email}</div>
             {isGoogleLogin.data ? <button onClick={() => signOut({ callbackUrl: "/" })} >로그아웃</button>
                 : <form action={logOut}>
-                    <button>로그아웃</button>
+                    <button className={`${buttonStyle} bg-black px-4 py-2`}>로그아웃</button>
                 </form>}
         </div>
     )

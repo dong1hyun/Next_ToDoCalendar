@@ -5,6 +5,7 @@ import curToDo_store from '../lib/curToDo_store';
 import { useParams, useRouter } from 'next/navigation';
 import axios from "axios"
 import { revalidateTag } from 'next/cache';
+import { buttonStyle } from '../lib/css';
 
 const CurToDo: React.FC = () => {
   const { curToDoId, title, startTime, year, month, day, duration, setDuration, setIntervalId } = curToDo_store(); // 현재 실행중인 toDo
@@ -81,8 +82,7 @@ const CurToDo: React.FC = () => {
   }, [curToDoId, prevDuration]);
 
   return (
-    <div onClick={onCurToDoClick} className='bg-blue-400 px-1 rounded-md text-sm md:text-base 
-    hover:scale-110 cursor-pointer transition-transform duration-200'>
+    <div onClick={onCurToDoClick} className={`${buttonStyle} bg-red-400 px-4 text-sm`}>
       <h1 className='max-w-32 truncate ...'>진행중: {title}</h1>
       <div>경과 시간: {duration}</div>
     </div>

@@ -1,0 +1,1 @@
+export const buttonStyle = "cursor-pointer text-white rounded hover:scale-110 transition-transform duration-200"
