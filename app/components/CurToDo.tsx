@@ -82,7 +82,7 @@ const CurToDo: React.FC = () => {
   }, [curToDoId, prevDuration]);
 
   return (
-    <div onClick={onCurToDoClick} className={`${buttonStyle} bg-red-400 px-4 text-sm`}>
+    <div onClick={onCurToDoClick} className={`${buttonStyle} bg-black px-4 text-sm`}>
       <h1 className='max-w-32 truncate ...'>진행중: {title}</h1>
       <div>경과 시간: {duration}</div>
     </div>

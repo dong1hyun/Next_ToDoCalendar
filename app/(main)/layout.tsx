@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <BackToCalendar />
                 <div className="flex-grow" />
                 <CurToDo />
-                <button onClick={() => router.push("/myPage")} className={`${buttonStyle} bg-green-500 px-4 py-2 ml-3`}>
+                <button onClick={() => router.push("/myPage")} className={`${buttonStyle} bg-black px-4 py-2 ml-3`}>
                     마이페이지
                 </button>
             </div>

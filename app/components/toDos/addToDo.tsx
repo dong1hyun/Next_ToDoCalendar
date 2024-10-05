@@ -9,20 +9,32 @@ import { addToDo, formData } from "../../(main)/toDos/[...date]/action";
 import { inputForm } from "../auth";
 import { AnimatePresence, motion } from 'framer-motion';
 
+const Loading = () => (
+    <div className="flex flex-row items-start justify-center gap-2 *:w-4 *:h-4 *:rounded-full *:bg-blue-700 *:animate-bounce ">
+        <div className=""></div>
+        <div className="[animation-delay:-.3s]"></div>
+        <div className="[animation-delay:-.5s]"></div>
+    </div>
+)
+
 export default function AddToDos() {
     const { date } = useParams();
     const [showPopUp, setShowPopUp] = useState(false);
     const [seletedType, setSelectedType] = useState("");
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit, reset } = useForm<formData>();
     const onValid = async (data: formData) => {
+        setLoading(true);
+        // await new Promise((resolve) => setTimeout(resolve, 300000));
         if(!seletedType) {
             alert("할 일의 종류를 선택해주세요!");
             return;
         }
-        setShowPopUp(false);
         reset();
         const toDo = {...data, type: seletedType};
         await addToDo(toDo, +date[0], +date[1], +date[2]);
+        setShowPopUp(false);
+        setLoading(false);
     }
 
     function ToDoTypeBtn({ type }: { type: string }) {
@@ -39,7 +51,7 @@ export default function AddToDos() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
                 className={`fixed flex flex-col gap-3 w-full border-2 max-w-[360px] 
-                    md:max-w-[500px] mt-40 p-5 pt-8 rounded-md
+                    md:max-w-[500px] mt-20 p-5 pt-8 rounded-md
                         bg-white transition-all duration-300 ease-in-out transform shadow-2xl mx-auto
                     }`}
             >
@@ -47,14 +59,16 @@ export default function AddToDos() {
                 <input placeholder="제목" {...register("title")} required className={inputForm} />
                 <input placeholder="할 일" {...register("description")} required className={`h-20 ${inputForm}`} />
                 <div className="flex justify-center">할 일의 종류를 선택해주세요!</div>
-                <div className="flex justify-between gap-3 text-sm md:px-10">
+                <div className="flex justify-between gap-3 text-sm md:px-10 mb-3">
                     <ToDoTypeBtn type="업무" />
                     <ToDoTypeBtn type="지인" />
                     <ToDoTypeBtn type="개인" />
                     <ToDoTypeBtn type="교육" />
                     <ToDoTypeBtn type="사회활동" />
                 </div>
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-600 rounded-md py-1">완료</button>
+                {
+                    loading ? <Loading /> : <button type="submit" className="text-white bg-blue-700 hover:bg-blue-600 rounded-md py-1">완료</button>
+                }
             </motion.form> : null}
             <PlusIcon
                 onClick={() => setShowPopUp(true)}
