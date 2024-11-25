@@ -37,7 +37,6 @@ export const getTypeCount = async (type: string, year: number, month: number ,is
 }
 
 export default async function Home({ params }: urlForm) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     const year = +params.date[0];
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
