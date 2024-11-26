@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ToDoCalendar
 
-## Getting Started
+달력에 일정을 기록하고 할 일과 완료한 일을 한 눈에 파악할 수 있도록 만든 웹 어플리케이션
 
-First, run the development server:
+배포: https://next-to-do-calendar.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Skills
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Next, TypeScript, Tailwind CSS, Zustand, PostgreSQL
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Major package version
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Node: 20.17.0 / Next: 14.2.4
 
-## Learn More
+# Script
 
-To learn more about Next.js, take a look at the following resources:
+- $ dev : 개발모드로 실행
+- $ build : Prisma Client를 생성 > Migration 최신화 > 빌드
+- $ start : 빌드된 파일로 실행
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 배포
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+이 프로젝트는 [Vercel](https://vercel.com)을 통해서 배포됩니다.
 
-## Deploy on Vercel
+### 배포 방법
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Vercel에 접속해서 회원가입 & 로그인
+2. 새 프로젝트를 생성하고 깃 리포지토리와 연결
+3. 데이터베이스 생성 후 프로젝트와 연결
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+자세한 내용 [블로그](https://blog.naver.com/limd1238/223603534081) 참고
