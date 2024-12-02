@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "./app/lib/session";
 import { getToken } from "next-auth/jwt";
-import { getServerSession } from "next-auth";
 
 interface Routes {
     [key:string]: boolean;

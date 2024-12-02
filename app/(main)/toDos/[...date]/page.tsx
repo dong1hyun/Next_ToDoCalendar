@@ -1,10 +1,8 @@
-import getSession from "@/app/lib/session";
-import { find_userId, getToDos } from "./action";
+import { getToDos } from "./action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
 import AddToDos from "@/app/components/toDos/addToDo";
 import ToDoList from "@/app/components/toDos/toDoList";
-import BackToCalendar from "@/app/components/backToCalendar";
-import { findUser } from "../../home/[...date]/page";
+import { findUser } from "@/app/lib/serverUtil";
 
 interface paramsForm {
   params: {
@@ -14,7 +12,6 @@ interface paramsForm {
 }
 
 export default async function ToDos({ params }: paramsForm) {
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const date = params.date;
   const getCachedToDos = nextCache(getToDos, [`toDos-${date[0]}-${date[1]}-${date[2]}`], { tags: [`toDos-${date[0]}-${date[1]}-${date[2]}`], revalidate: 30 });
   const user = await findUser();

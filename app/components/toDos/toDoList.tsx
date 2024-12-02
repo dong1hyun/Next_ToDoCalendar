@@ -9,7 +9,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import curToDo_store from "../../lib/curToDo_store";
 import { useState } from "react";
 
-interface toDosForm {
+export interface toDosForm {
     id: number;
     title: string;
     description: string;

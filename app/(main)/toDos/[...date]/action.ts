@@ -3,9 +3,7 @@
 import db from "@/app/lib/db";
 import getSession from "@/app/lib/session";
 import { revalidateTag } from "next/cache";
-import { findUser } from "../../home/[...date]/page";
 import { getServerSession } from "next-auth";
-import curToDo_store from "@/app/lib/curToDo_store";
 
 export interface formData {
     title: string,
@@ -78,7 +76,7 @@ export const deleteToDo = async (id: number, year: number, month: number, day: n
             id
         }
     });
-    revalidateTag(`toDos-${year}-${month}-${day}`);
+    // revalidateTag(`toDos-${year}-${month}-${day}`);
 }
 
 export const completeToDo = async (id: number, year: number, month: number, day: number) => {
