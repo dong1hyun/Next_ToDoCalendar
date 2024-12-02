@@ -29,3 +29,7 @@ Node: 20.17.0 / Next: 14.2.4
 3. 데이터베이스 생성 후 프로젝트와 연결
 
 자세한 내용 [블로그](https://blog.naver.com/limd1238/223603534081) 참고
+
+### History
+[1.0.0](https://github.com/dong1hyun/Next_ToDoCalendar/wiki/1.0.0-V)
+
