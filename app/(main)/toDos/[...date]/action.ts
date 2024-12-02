@@ -29,6 +29,7 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
         }
     });
     revalidateTag(`${userId}-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}`);
 }
 
 export async function getToDos(user: { id?: number, email?: string }, year: number, month: number, day: number) {
@@ -56,6 +57,7 @@ export const deleteToDo = async (id: number, year: number, month: number, day: n
         }
     });
     revalidateTag(`${userId}-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}`);
 }
 
 export const completeToDo = async (id: number, year: number, month: number, day: number, isComplete: boolean) => {
@@ -71,4 +73,5 @@ export const completeToDo = async (id: number, year: number, month: number, day:
     });
     
     revalidateTag(`${userId}-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}`);
 }
