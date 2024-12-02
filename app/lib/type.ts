@@ -1,8 +1,10 @@
+export interface userType {
+    email?: string,
+    id?: number
+}
+
 export interface getCountType {
-    user: {
-        email?: string,
-        id?: number
-    }, 
+    user: userType
     year: number, 
     month: number
 }

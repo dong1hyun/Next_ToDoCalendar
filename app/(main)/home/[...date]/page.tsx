@@ -1,6 +1,6 @@
 import { Calendar } from "../../../components/calendar";
 import MyResponsivePie from "@/app/components/Chart";
-import { findUser } from "@/app/lib/serverUtil";
+import { find_userId, findUser } from "@/app/lib/serverUtil";
 import { unstable_cache as nextCache } from "next/cache";
 import { getCounts } from "./action";
 
@@ -25,12 +25,13 @@ export default async function Home({ params }: urlForm) {
     const toDoCount: number[] = Array(limit).fill(0);
     const completeCount: number[] = Array(limit).fill(0);
     const user = await findUser();
+    const userId = await find_userId();
     try {
         const getCachedCounts = nextCache(
             getCounts,
-            [`${user.id}-${year}-${month}`],
+            [`${userId}-${year}-${month}`],
             {
-                tags: [`${user.id}-${year}-${month}`],
+                tags: [`${userId}-${year}-${month}`],
                 revalidate: 30
             }
         )

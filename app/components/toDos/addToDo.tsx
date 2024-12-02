@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import { addToDo, formData } from "../../(main)/toDos/[...date]/action";
 import { inputForm } from "../auth";
 import { AnimatePresence, motion } from 'framer-motion';
+import { revalidateTag } from "next/cache";
 
 const Loading = () => (
     <div className="flex flex-row items-start justify-center gap-2 *:w-4 *:h-4 *:rounded-full *:bg-blue-700 *:animate-bounce ">
@@ -25,7 +26,6 @@ export default function AddToDos() {
     const { register, handleSubmit, reset } = useForm<formData>();
     const onValid = async (data: formData) => {
         setLoading(true);
-        // await new Promise((resolve) => setTimeout(resolve, 300000));
         if(!seletedType) {
             alert("할 일의 종류를 선택해주세요!");
             return;

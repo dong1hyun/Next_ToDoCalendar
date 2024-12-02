@@ -2,6 +2,7 @@
 
 import { ResponsivePie } from "@nivo/pie";
 import { useMemo } from "react";
+import { generateChartData } from "../lib/util";
 
 interface Props {
     typeCount: {
@@ -15,33 +16,9 @@ interface Props {
 }
 
 const MyResponsivePie = ({ typeCount, colors }: Props) => {
-    const data = useMemo(() => [
-        {
-            "id": "업무",
-            "label": "업무",
-            "value": typeCount.work,
-        },
-        {
-            "id": "지인",
-            "label": "지인",
-            "value": typeCount.friend,
-        },
-        {
-            "id": "개인",
-            "label": "개인",
-            "value": typeCount.individual,
-        },
-        {
-            "id": "교육",
-            "label": "교육",
-            "value": typeCount.education,
-        },
-        {
-            "id": "사회활동",
-            "label": "사회활동",
-            "value": typeCount.social,
-        },
-    ], [typeCount]);
+    const data = useMemo(() => generateChartData(typeCount),
+        [typeCount]
+    );
     return (
     <>
         <ResponsivePie

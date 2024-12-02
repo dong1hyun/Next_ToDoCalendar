@@ -1,9 +1,8 @@
 "use server"
 
 import db from "@/app/lib/db";
-import getSession from "@/app/lib/session";
 import { revalidateTag } from "next/cache";
-import { getServerSession } from "next-auth";
+import { find_userId } from "@/app/lib/serverUtil";
 
 export interface formData {
     title: string,
@@ -11,27 +10,8 @@ export interface formData {
     type: string
 }
 
-export const find_userId = async () => {
-    const session = await getSession();
-    const data = await getServerSession();
-    const google_email = data?.user?.email;
-    if (session.id) return session.id
-    if (google_email) {
-        const google_user = await db.user.findUnique({
-            where: {
-                email: google_email
-            },
-            select: {
-                id: true
-            }
-        });
-
-        return google_user?.id;
-    }
-}
-
 export async function addToDo(toDo: formData, year: number, month: number, day: number) {
-    const id = await find_userId();
+    const userId = await find_userId();
     await db.toDo.create({
         data: {
             title: toDo.title,
@@ -43,16 +23,15 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             duration: 0,
             user: {
                 connect: {
-                    id
+                    id: userId
                 }
             }
         }
     });
-    revalidateTag(`toDos-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}-${day}`);
 }
 
 export async function getToDos(user: { id?: number, email?: string }, year: number, month: number, day: number) {
-    // const user2 = await findUser();
     const toDos = await db.toDo.findMany({
         where: {
             year,
@@ -70,17 +49,18 @@ export async function getToDos(user: { id?: number, email?: string }, year: numb
 
 export const deleteToDo = async (id: number, year: number, month: number, day: number) => {
     "use server"
-    const session = await getSession();
+    const userId = await find_userId();
     await db.toDo.delete({
         where: {
             id
         }
     });
-    // revalidateTag(`toDos-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}-${day}`);
 }
 
 export const completeToDo = async (id: number, year: number, month: number, day: number) => {
     "use server"
+    const userId = await find_userId();
     const toDo = await db.toDo.findUnique({
         where: {
             id
@@ -98,5 +78,5 @@ export const completeToDo = async (id: number, year: number, month: number, day:
         }
     });
     
-    revalidateTag(`toDos-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}-${day}`);
 }
