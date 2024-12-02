@@ -39,8 +39,8 @@ export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm
     const onPlayClick = (id: number, title: string) => {
         setCurToDo(id, title, year, month, day);
     }
-    const onCompleteClick = (id: number, year: number, month: number, day: number) => {
-        completeToDo(id, year, month, day);
+    const onCompleteClick = (id: number, year: number, month: number, day: number, isComplete: boolean) => {
+        completeToDo(id, year, month, day, isComplete);
         if (id === curToDoId) {
             setCurToDo(0, "없음", 0, 0, 0);
             setDuration("");
@@ -65,7 +65,7 @@ export default function ToDoList({ toDos, year, month, day }: { toDos: toDosForm
                     <div className="absolute left-0 bottom-0 p-1 text-xs font-bold">
                         {toDo.id === curToDoId ? "진행중" : `${setTime(toDo.duration)} 진행`}
                     </div>
-                    <button onClick={() => onCompleteClick(toDo.id, year, month, day)}
+                    <button onClick={() => onCompleteClick(toDo.id, year, month, day, toDo.isComplete)}
                         className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} 
                         rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>
                         {toDo.isComplete ? "취소" : "완료"}

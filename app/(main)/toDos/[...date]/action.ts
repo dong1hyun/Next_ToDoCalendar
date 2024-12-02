@@ -58,23 +58,15 @@ export const deleteToDo = async (id: number, year: number, month: number, day: n
     revalidateTag(`${userId}-${year}-${month}-${day}`);
 }
 
-export const completeToDo = async (id: number, year: number, month: number, day: number) => {
+export const completeToDo = async (id: number, year: number, month: number, day: number, isComplete: boolean) => {
     "use server"
     const userId = await find_userId();
-    const toDo = await db.toDo.findUnique({
-        where: {
-            id
-        },
-        select: {
-            isComplete: true
-        }
-    });
     await db.toDo.update({
         where: {
             id
         },
         data: {
-            isComplete: !toDo?.isComplete
+            isComplete: !isComplete
         }
     });
     
