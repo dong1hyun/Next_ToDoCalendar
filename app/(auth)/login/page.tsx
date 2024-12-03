@@ -9,7 +9,6 @@ import { signIn, useSession } from "next-auth/react";
 export default function Login() {
     const [state, action] = useFormState(userLogIn, null);
     const date = new Date();
-    const user = useSession();
     return (
         <div className="flex flex-col justify-center items-center mt-36 text-black gap-3 ">
             <div className="flex flex-col gap-3 text-center">
