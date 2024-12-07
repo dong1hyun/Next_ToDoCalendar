@@ -8,3 +8,18 @@ export interface getCountType {
     year: number, 
     month: number
 }
+
+export interface toDosForm {
+    id: number;
+    title: string;
+    description: string;
+    type: string;
+    year: number;
+    month: number;
+    day: number;
+    isComplete: boolean;
+    duration: number;
+    created_at: Date;
+    updated_at: Date;
+    userId: number;
+}

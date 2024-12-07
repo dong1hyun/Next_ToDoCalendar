@@ -35,33 +35,36 @@ export default async function Home({ params }: urlForm) {
                 revalidate: 30
             }
         )
-        const counts = await getCachedCounts({user, year, month});
+        getCachedCounts({ user, year, month })
+            .then((res) => {
+                res.forEach((item) => {
+                    if (item.isComplete) {
+                        completeCount[item.day - 1]++;
+                    } else {
+                        toDoCount[item.day - 1]++;
+                    }
 
-        counts.forEach((item) => {
-            if (item.isComplete) {
-                completeCount[item.day - 1]++;
-            } else {
-                toDoCount[item.day - 1]++;
-            }
+                    if (!item.isComplete) {
+                        if (item.type == "업무") {
+                            typeCount.work++;
+                        } else if (item.type == "지인") {
+                            typeCount.friend++;
+                        } else if (item.type == "개인") {
+                            typeCount.individual++;
+                        } else if (item.type == "교육") {
+                            typeCount.education++;
+                        } else {
+                            typeCount.social++;
+                        }
+                    }
+                });
+            })
 
-            if (!item.isComplete) {
-                if (item.type == "업무") {
-                    typeCount.work++;
-                } else if (item.type == "지인") {
-                    typeCount.friend++;
-                } else if (item.type == "개인") {
-                    typeCount.individual++;
-                } else if (item.type == "교육") {
-                    typeCount.education++;
-                } else {
-                    typeCount.social++;
-                }
-            }
-        });
+
     } catch (error) {
         console.error("toDo count 에러:", error);
     }
-    
+
     return (
         <div className="flex flex-col xl:flex-row justify-center items-center xl:gap-5">
             <Calendar toDoCount={toDoCount} completeCount={completeCount} />
