@@ -34,7 +34,7 @@ Node: 20.17.0 / Next: 14.2.4
 
 ## 🔐로그인
 
-### Iron-Session을 이용한 암호화 세션 기반 로그인
+### Iron-Session을 이용한 암호화 쿠키 기반 로그인
 ![image](https://github.com/user-attachments/assets/cbc40a52-42b6-4bc4-88a7-c25978b36392)
 
 ### Next-Auth를 이용한 JWT 기반 구글 로그인
