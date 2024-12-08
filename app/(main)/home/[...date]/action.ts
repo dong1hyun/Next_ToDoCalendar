@@ -4,8 +4,9 @@ import db from "@/app/lib/db";
 import { getCountType } from "@/app/lib/type";
 import { redirect } from "next/navigation";
 
-export async function onDayClick(email: string, year: number, month: number, day: number, notThisMonth: boolean) {
-    if(notThisMonth) return
+export async function onDayClick(year: number, month: number, day: number, notThisMonth: boolean) {
+    console.log(year)
+    if(notThisMonth) return;
     redirect(`/toDos/${year}/${month}/${day}`);
 }
 

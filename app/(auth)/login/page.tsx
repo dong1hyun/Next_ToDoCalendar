@@ -1,6 +1,6 @@
 "use client"
 
-import { Error, inputForm } from "@/app/components/auth";
+import { Error, inputForm } from "@/app/components/Auth";
 import { useFormState } from "react-dom";
 import { FcGoogle } from "react-icons/fc";
 import { userLogIn } from "./action";

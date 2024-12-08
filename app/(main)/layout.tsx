@@ -1,10 +1,9 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import BackToCalendar from "../components/backToCalendar";
 import CurToDo from "../components/CurToDo";
-import useCurToDoStore from "../lib/curToDo_store";
 import { buttonStyle } from "../lib/css";
+import BackToCalendar from "../components/backToCalendar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const router = useRouter();

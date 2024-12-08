@@ -1,11 +1,11 @@
 "use server"
 
-import UserInfo from "@/app/components/myPage/userInfo";
 import { getMypageTypeCount, getUserInfo } from "./action"
 import { notFound } from "next/navigation";
 import MyResponsivePie from "@/app/components/Chart";
 import { unstable_cache as nextCache } from "next/cache";
 import { findUser } from "@/app/lib/serverUtil";
+import UserInfo from "@/app/components/myPage/userInfo";
 
 const typeCount = {
     work: 0,

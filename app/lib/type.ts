@@ -23,3 +23,11 @@ export interface toDosForm {
     updated_at: Date;
     userId: number;
 }
+
+export interface chartDataType {
+    work: number
+    friend: number
+    individual: number
+    education: number
+    social: number
+}
