@@ -34,21 +34,28 @@ const ToDo = memo(({ toDo, year, month, day }: Props) => {
         setCurToDo(toDo.id, toDo.title, year, month, day);
     }, watchTarget);
 
+    const stopTimer = useCallback(() => {
+        setCurToDo(0, "없음", 0, 0, 0);
+        setDuration("");
+        clearInterval(intervalId);
+    }, []);
+
     const onCompleteClick = useCallback(() => {
+        if (toDo.id === curToDoId) stopTimer();
         completeToDo(toDo.id, year, month, day, toDo.isComplete);
-        if (toDo.id === curToDoId) {
-            setCurToDo(0, "없음", 0, 0, 0);
-            setDuration("");
-            clearInterval(intervalId);
-        }
-    }, watchTarget);
+    }, [...watchTarget, curToDoId]);
+
+    const onDeleteClick = useCallback((id: number, year: number, month: number, day: number) => {
+        if (id === curToDoId) stopTimer();
+        deleteToDo(id, year, month, day);
+    }, [curToDoId]);
 
     return (
         <motion.div
             style={{ opacity: toDo.isComplete ? 0.5 : 1 }}
             transition={{ duration: 0.5 }} className={`relative shadow-2xl p-5 pb-2 rounded-xl
                             bg-white text-center w-[300px] sm:min-w-[350px] md:min-w-[400px]`}>
-            <button onClick={() => deleteToDo(toDo.id, year, month, day)} className="absolute right-1 top-1"><RiCloseFill /></button>
+            <button onClick={() => onDeleteClick(toDo.id, year, month, day)} className="absolute right-1 top-1"><RiCloseFill /></button>
             <div className="flex flex-col gap-3 relative">
                 <div className="absolute flex items-center gap-1 opacity-65"><FcTodoList className="size-5" />{toDo.type}</div>
                 <h1 className={`${toDo.isComplete && "line-through"}`}>{toDo.title}</h1>

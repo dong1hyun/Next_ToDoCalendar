@@ -1,8 +1,8 @@
 import { getToDos } from "./action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
 import { find_userId, findUser } from "@/app/lib/serverUtil";
-import ToDoList from "@/app/components/toDos/toDoList";
-import AddToDos from "@/app/components/toDos/addToDo";
+import ToDoList from "@/app/components/toDos/ToDoList";
+import AddToDos from "@/app/components/toDos/AddToDo";
 
 interface paramsForm {
   params: {

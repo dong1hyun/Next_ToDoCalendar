@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import MyResponsivePie from "@/app/components/Chart";
 import { unstable_cache as nextCache } from "next/cache";
 import { findUser } from "@/app/lib/serverUtil";
-import UserInfo from "@/app/components/myPage/userInfo";
+import UserInfo from "@/app/components/myPage/UserInfo";
 
 const typeCount = {
     work: 0,

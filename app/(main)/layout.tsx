@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import CurToDo from "../components/CurToDo";
 import { buttonStyle } from "../lib/css";
-import BackToCalendar from "../components/backToCalendar";
+import BackToCalendar from "../components/BackToCalendar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
