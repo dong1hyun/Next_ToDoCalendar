@@ -10,14 +10,6 @@ interface urlForm {
     }
 }
 
-const typeCount = {
-    work: 0,
-    friend: 0,
-    individual: 0,
-    education: 0,
-    social: 0
-}
-
 export default async function Home({ params }: urlForm) {
     const year = +params.date[0];
     const month = +params.date[1];
@@ -26,6 +18,13 @@ export default async function Home({ params }: urlForm) {
     const completeCount: number[] = Array(limit).fill(0);
     const user = await findUser();
     const userId = await find_userId();
+    const typeCount = {
+        work: 0,
+        friend: 0,
+        individual: 0,
+        education: 0,
+        social: 0
+    }
     try {
         const getCachedCounts = nextCache(
             getCounts,
@@ -34,33 +33,29 @@ export default async function Home({ params }: urlForm) {
                 tags: [`${userId}-${year}-${month}`],
                 revalidate: 30
             }
-        )
-        getCachedCounts({ user, year, month })
-            .then((res) => {
-                res.forEach((item) => {
-                    if (item.isComplete) {
-                        completeCount[item.day - 1]++;
-                    } else {
-                        toDoCount[item.day - 1]++;
-                    }
+        );
+        const counts = await getCachedCounts({ user, year, month });
+        counts.forEach((item) => {
+            if (item.isComplete) {
+                completeCount[item.day - 1]++;
+            } else {
+                toDoCount[item.day - 1]++;
+            }
 
-                    if (!item.isComplete) {
-                        if (item.type == "업무") {
-                            typeCount.work++;
-                        } else if (item.type == "지인") {
-                            typeCount.friend++;
-                        } else if (item.type == "개인") {
-                            typeCount.individual++;
-                        } else if (item.type == "교육") {
-                            typeCount.education++;
-                        } else {
-                            typeCount.social++;
-                        }
-                    }
-                });
-            })
-
-
+            if (!item.isComplete) {
+                if (item.type == "업무") {
+                    typeCount.work++;
+                } else if (item.type == "지인") {
+                    typeCount.friend++;
+                } else if (item.type == "개인") {
+                    typeCount.individual++;
+                } else if (item.type == "교육") {
+                    typeCount.education++;
+                } else {
+                    typeCount.social++;
+                }
+            }
+        });
     } catch (error) {
         console.error("toDo count 에러:", error);
     }

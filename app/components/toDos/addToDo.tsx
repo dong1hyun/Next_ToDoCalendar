@@ -24,11 +24,11 @@ export default function AddToDos() {
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, reset } = useForm<formData>();
     const onValid = async (data: formData) => {
-        setLoading(true);
         if(!seletedType) {
             alert("할 일의 종류를 선택해주세요!");
             return;
         }
+        setLoading(true);
         reset();
         const toDo = {...data, type: seletedType};
         await addToDo(toDo, +date[0], +date[1], +date[2]);

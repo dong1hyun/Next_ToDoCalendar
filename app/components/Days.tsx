@@ -40,7 +40,6 @@ const Days = memo(({ year, month, completeCount, toDoCount }: Props) => {
                 return (
                     <div
                         onClick={() => {
-                            console.log(year, month, day, notThisMonth)
                             onDayClick(year, month + 1, day, notThisMonth);
                         }}
                         key={i}
