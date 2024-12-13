@@ -1,8 +1,8 @@
 "use client"
 
 import { memo, useMemo } from "react";
-import { onDayClick } from "../(main)/home/[...date]/action";
-import { createCalendar, createDaysData, density } from "../lib/util";
+import { onDayClick } from "../../(main)/home/[...date]/action";
+import { createCalendar, createDaysData, density } from "../../lib/util";
 
 interface Props {
     year: number

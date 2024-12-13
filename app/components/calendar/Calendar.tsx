@@ -3,6 +3,8 @@
 import { useParams } from "next/navigation";
 import SelectedMonth from "./SelectedMonth";
 import Days from "./Days";
+import SearchBar from "./SearchBar";
+import ToDoSearchResult from "./ToDoSearchResult";
 
 interface Props {
     toDoCount: number[]
@@ -16,7 +18,11 @@ export function Calendar({ toDoCount, completeCount }: Props) {
 
     return (
         <div className="bg-white p-4 rounded-lg shadow-2xl w-[330px] sm:w-[450px] md:w-[600px] mt-12 xl:mt-32">
-            <SelectedMonth year={year} month={month} />
+            <ToDoSearchResult />
+            <div className="flex justify-between">
+                <SelectedMonth year={year} month={month} />
+                <SearchBar />
+            </div>
             <div className="grid grid-cols-7 place-items-center text-sm font-medium text-gray-600 mb-2">
                 <span className="text-red-500">SUN</span>
                 <span>MON</span>

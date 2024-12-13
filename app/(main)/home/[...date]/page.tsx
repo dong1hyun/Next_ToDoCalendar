@@ -2,7 +2,7 @@ import MyResponsivePie from "@/app/components/Chart";
 import { find_userId, findUser } from "@/app/lib/serverUtil";
 import { unstable_cache as nextCache } from "next/cache";
 import { getCounts } from "./action";
-import { Calendar } from "@/app/components/Calendar";
+import { Calendar } from "@/app/components/calendar/Calendar";
 
 interface urlForm {
     params: {
