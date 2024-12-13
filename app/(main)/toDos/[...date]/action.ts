@@ -12,6 +12,7 @@ export interface formData {
 
 export async function addToDo(toDo: formData, year: number, month: number, day: number) {
     const userId = await find_userId();
+    console.log(userId)
     await db.toDo.create({
         data: {
             title: toDo.title,
