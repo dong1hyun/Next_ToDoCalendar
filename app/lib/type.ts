@@ -5,7 +5,7 @@ export interface userType {
 
 export interface getCountType {
     user: userType
-    year: number, 
+    year: number,
     month: number
 }
 
@@ -30,4 +30,11 @@ export interface chartDataType {
     individual: number
     education: number
     social: number
+}
+
+export interface ToDoRevalidateType {
+    userId: number
+    year: number
+    month: number
+    day: number
 }

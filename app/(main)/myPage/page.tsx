@@ -25,7 +25,7 @@ export default async function MyPage() {
     const getCachedMypageTypeCount = nextCache(getMypageTypeCount,
         [`${user.id}`],
         {
-            tags: [`${user}`],
+            tags: [`${user.id}`],
             revalidate: 30
         });
     const counts = await getCachedMypageTypeCount(user);

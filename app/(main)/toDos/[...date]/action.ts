@@ -2,7 +2,7 @@
 
 import db from "@/app/lib/db";
 import { revalidateTag } from "next/cache";
-import { find_userId } from "@/app/lib/serverUtil";
+import { find_userId, toDoRevalidate } from "@/app/lib/serverUtil";
 
 export interface formData {
     title: string,
@@ -12,7 +12,6 @@ export interface formData {
 
 export async function addToDo(toDo: formData, year: number, month: number, day: number) {
     const userId = await find_userId();
-    console.log(userId)
     await db.toDo.create({
         data: {
             title: toDo.title,
@@ -29,8 +28,7 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             }
         }
     });
-    revalidateTag(`${userId}-${year}-${month}-${day}`);
-    revalidateTag(`${userId}-${year}-${month}`);
+    toDoRevalidate({userId, year, month, day});
 }
 
 export async function getToDos(user: { id?: number, email?: string }, year: number, month: number, day: number) {
@@ -57,8 +55,7 @@ export const deleteToDo = async (id: number, year: number, month: number, day: n
             id
         }
     });
-    revalidateTag(`${userId}-${year}-${month}-${day}`);
-    revalidateTag(`${userId}-${year}-${month}`);
+    toDoRevalidate({userId, year, month, day});
 }
 
 export const completeToDo = async (id: number, year: number, month: number, day: number, isComplete: boolean) => {
@@ -73,6 +70,5 @@ export const completeToDo = async (id: number, year: number, month: number, day:
         }
     });
     
-    revalidateTag(`${userId}-${year}-${month}-${day}`);
-    revalidateTag(`${userId}-${year}-${month}`);
+    toDoRevalidate({userId, year, month, day});
 }
