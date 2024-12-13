@@ -10,7 +10,6 @@ export const findUser = async () => {
     const exist_info: {id?: number; email?: string} = {};
     if(session.id) exist_info.id = session.id;
     if(google_email) exist_info.email = google_email;
-    console.log(exist_info)
     return exist_info;
 }
 
