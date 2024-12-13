@@ -59,5 +59,5 @@ Node: 20.17.0 / Next: 14.2.4
 
 
 ### History
-[1.0.0](https://github.com/dong1hyun/Next_ToDoCalendar/wiki/1.0.0-V)
-
+[1.0.0](https://github.com/dong1hyun/Next_ToDoCalendar/wiki/1.0.0-V)<br>
+[1.1.0](https://github.com/dong1hyun/Next_ToDoCalendar/wiki/1.1.0-V)
