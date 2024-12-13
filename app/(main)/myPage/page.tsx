@@ -7,15 +7,14 @@ import { unstable_cache as nextCache } from "next/cache";
 import { findUser } from "@/app/lib/serverUtil";
 import UserInfo from "@/app/components/myPage/UserInfo";
 
-const typeCount = {
-    work: 0,
-    friend: 0,
-    individual: 0,
-    education: 0,
-    social: 0
-}
-
 export default async function MyPage() {
+    const typeCount = {
+        work: 0,
+        friend: 0,
+        individual: 0,
+        education: 0,
+        social: 0
+    }
     const date = new Date();
     const month = date.getMonth() + 1;
     const userInfo = await getUserInfo();
