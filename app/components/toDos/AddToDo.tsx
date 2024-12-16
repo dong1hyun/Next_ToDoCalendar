@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IoIosBackspace } from "react-icons/io";
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ export default function AddToDos() {
     const [seletedType, setSelectedType] = useState("");
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, reset } = useForm<formData>();
-    const onValid = async (data: formData) => {
+    const onValid = useCallback(async (data: formData) => {
         if(!seletedType) {
             alert("할 일의 종류를 선택해주세요!");
             return;
@@ -34,7 +34,7 @@ export default function AddToDos() {
         await addToDo(toDo, +date[0], +date[1], +date[2]);
         setShowPopUp(false);
         setLoading(false);
-    }
+    }, [seletedType, date]);
 
     function ToDoTypeBtn({ type }: { type: string }) {
         return <button onClick={() => setSelectedType(type)} className={`border border-black px-1 rounded-md font-dh hover:bg-blue-300 ${seletedType === type ? "bg-blue-500" : null}`}>{type}</button>
