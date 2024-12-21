@@ -33,7 +33,7 @@ export interface chartDataType {
 }
 
 export interface ToDoRevalidateType {
-    userId: userType, 
+    userId: number, 
     year: number, 
     month: number, 
     day: number
