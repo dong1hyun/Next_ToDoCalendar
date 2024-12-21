@@ -31,3 +31,10 @@ export interface chartDataType {
     education: number
     social: number
 }
+
+export interface ToDoRevalidateType {
+    userId: userType, 
+    year: number, 
+    month: number, 
+    day: number
+}

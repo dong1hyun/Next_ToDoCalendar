@@ -3,6 +3,8 @@
 import { getServerSession } from "next-auth";
 import getSession from "./session";
 import db from "./db";
+import { revalidateTag } from 'next/cache';
+import { ToDoRevalidateType } from "./type";
 export const findUser = async () => {
     const session = await getSession();
     const data = await getServerSession();
@@ -30,4 +32,10 @@ export const find_userId = async () => {
 
         return google_user?.id;
     }
+}
+
+export const toDoRevalidate = ({ userId, year, month, day }: ToDoRevalidateType) => {
+    revalidateTag(`${userId}-${year}-${month}-${day}`);
+    revalidateTag(`${userId}-${year}-${month}`);
+    revalidateTag(`${userId}`);
 }

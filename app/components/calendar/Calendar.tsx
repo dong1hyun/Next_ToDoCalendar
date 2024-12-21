@@ -5,6 +5,8 @@ import SelectedMonth from "./SelectedMonth";
 import Days from "./Days";
 import SearchBar from "./SearchBar";
 import ToDoSearchResult from "./ToDoSearchResult";
+import { getToDos } from "@/app/(main)/toDos/[...date]/action";
+import { getCounts } from "@/app/(main)/home/[...date]/action";
 
 interface Props {
     toDoCount: number[]
