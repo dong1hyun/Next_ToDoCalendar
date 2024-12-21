@@ -1,8 +1,8 @@
 import MyResponsivePie from "@/app/components/Chart";
-import { find_userId, findUser } from "@/app/lib/serverUtil";
 import { unstable_cache as nextCache } from "next/cache";
 import { getCounts } from "./action";
 import { Calendar } from "@/app/components/calendar/Calendar";
+import { findUserEmail } from "@/app/lib/serverUtil";
 
 interface urlForm {
     params: {
@@ -11,13 +11,12 @@ interface urlForm {
 }
 
 export default async function Home({ params }: urlForm) {
+    const email = await findUserEmail();
     const year = +params.date[0];
     const month = +params.date[1];
     const limit = new Date(year, month, 0).getDate();
     const toDoCount: number[] = Array(limit).fill(0);
     const completeCount: number[] = Array(limit).fill(0);
-    const user = await findUser();
-    const userId = await find_userId();
     const typeCount = {
         work: 0,
         friend: 0,
@@ -28,13 +27,13 @@ export default async function Home({ params }: urlForm) {
     try {
         const getCachedCounts = nextCache(
             getCounts,
-            [`${userId}-${year}-${month}`],
+            [`${email}-${year}-${month}`],
             {
-                tags: [`${userId}-${year}-${month}`],
+                tags: [`${email}-${year}-${month}`],
                 revalidate: 30
             }
         );
-        const counts = await getCachedCounts({ user, year, month });
+        const counts = await getCachedCounts({ email, year, month });
         counts.forEach((item) => {
             if (item.isComplete) {
                 completeCount[item.day - 1]++;

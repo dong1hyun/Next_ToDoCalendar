@@ -1,5 +1,3 @@
-import { find_userId } from "@/app/lib/serverUtil";
-import { unstable_cache as nextCache} from "next/cache";
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 

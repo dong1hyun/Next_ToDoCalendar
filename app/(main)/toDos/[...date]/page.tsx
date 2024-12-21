@@ -1,8 +1,8 @@
 import { getToDos } from "./action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
-import { find_userId, findUser } from "@/app/lib/serverUtil";
-import ToDoList from "@/app/components/toDos/toDoList";
-import AddToDos from "@/app/components/toDos/addToDo";
+import { findUserEmail } from "@/app/lib/serverUtil";
+import ToDoList from "@/app/components/toDos/ToDoList";
+import AddToDos from "@/app/components/toDos/AddToDo";
 
 interface paramsForm {
   params: {
@@ -12,19 +12,18 @@ interface paramsForm {
 }
 
 export default async function ToDos({ params }: paramsForm) {
+  const email = await findUserEmail();
   const date = params.date;
-  const user = await findUser();
-  const userId = await find_userId();
   const year = +date[0];
   const month = +date[1];
   const day = +date[2]
   const getCachedToDos = nextCache(getToDos, 
-    [`${userId}-${year}-${month}-${day}`],
+    [`${email}-${year}-${month}-${day}`],
     {
-      tags: [`${userId}-${year}-${month}-${day}`],
+      tags: [`${email}-${year}-${month}-${day}`],
       revalidate: 30
     });
-  const toDos = await getCachedToDos(user, year, month, day);
+  const toDos = await getCachedToDos(email, year, month, day);
   return (
     <div>
       <div className="flex flex-col items-center pt-20">

@@ -1,7 +1,7 @@
 "use server"
 
 import db from "@/app/lib/db";
-import { find_userId, toDoRevalidate } from "@/app/lib/serverUtil";
+import { findUserEmail, toDoRevalidate } from "@/app/lib/serverUtil";
 
 export interface formData {
     title: string,
@@ -10,7 +10,7 @@ export interface formData {
 }
 
 export async function addToDo(toDo: formData, year: number, month: number, day: number) {
-    const userId = await find_userId();
+    const email = await findUserEmail();
     await db.toDo.create({
         data: {
             title: toDo.title,
@@ -22,21 +22,23 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             duration: 0,
             user: {
                 connect: {
-                    id: userId
+                    email
                 }
             }
         }
     });
-    toDoRevalidate({userId, year, month, day});
+    toDoRevalidate({ email, year, month, day });
 }
 
-export async function getToDos(user: { id?: number, email?: string }, year: number, month: number, day: number) {
+export async function getToDos(email: string, year: number, month: number, day: number) {
     const toDos = await db.toDo.findMany({
         where: {
             year,
             month,
             day,
-            user
+            user: {
+                email
+            }
         },
         orderBy: {
             created_at: "asc"
@@ -47,19 +49,17 @@ export async function getToDos(user: { id?: number, email?: string }, year: numb
 }
 
 export const deleteToDo = async (id: number, year: number, month: number, day: number) => {
-    "use server"
-    const userId = await find_userId();
+    const email = await findUserEmail();
     await db.toDo.delete({
         where: {
             id
         }
     });
-    toDoRevalidate({userId, year, month, day});
+    toDoRevalidate({ email, year, month, day });
 }
 
 export const completeToDo = async (id: number, year: number, month: number, day: number, isComplete: boolean) => {
-    "use server"
-    const userId = await find_userId();
+    const email = await findUserEmail();
     await db.toDo.update({
         where: {
             id
@@ -68,6 +68,6 @@ export const completeToDo = async (id: number, year: number, month: number, day:
             isComplete: !isComplete
         }
     });
-    
-    toDoRevalidate({userId, year, month, day});
+
+    toDoRevalidate({ email, year, month, day });
 }

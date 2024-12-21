@@ -9,12 +9,12 @@ export async function onDayClick(year: number, month: number, day: number, notTh
     redirect(`/toDos/${year}/${month}/${day}`);
 }
 
-export async function getCounts({user, year, month}: getCountType) {
+export async function getCounts({email, year, month}: getCountType) {
     const counts = await db.toDo.findMany({
         where: {
             year,
             month,
-            user,
+            userEmail: email
         },
     });
 

@@ -6,8 +6,8 @@ import { PlusIcon } from "@heroicons/react/16/solid";
 import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 import { addToDo, formData } from "../../(main)/toDos/[...date]/action";
-import { inputForm } from "../Auth";
 import { AnimatePresence, motion } from 'framer-motion';
+import { inputForm } from "../Auth";
 
 const Loading = () => (
     <div className="flex flex-row items-start justify-center gap-2 *:w-4 *:h-4 *:rounded-full *:bg-blue-700 *:animate-bounce ">

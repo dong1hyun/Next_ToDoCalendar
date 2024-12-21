@@ -1,8 +1,8 @@
 "use client"
 
-import { Error, inputForm } from "@/app/components/Auth";
 import { useFormState } from "react-dom";
 import { create_account } from "./action";
+import { Error, inputForm } from "@/app/components/Auth";
 
 export default function CreateAccount() {
     const [state, action] = useFormState(create_account, null);

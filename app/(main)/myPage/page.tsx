@@ -4,8 +4,9 @@ import { getMypageTypeCount, getUserInfo } from "./action"
 import { notFound } from "next/navigation";
 import MyResponsivePie from "@/app/components/Chart";
 import { unstable_cache as nextCache } from "next/cache";
-import { findUser } from "@/app/lib/serverUtil";
 import UserInfo from "@/app/components/myPage/userInfo";
+import toDoStore from "@/app/lib/ToDoStore";
+import { findUserEmail } from "@/app/lib/serverUtil";
 
 const typeCount = {
     work: 0,
@@ -16,19 +17,19 @@ const typeCount = {
 }
 
 export default async function MyPage() {
+    const email = await findUserEmail();
     const date = new Date();
     const month = date.getMonth() + 1;
     const userInfo = await getUserInfo();
-    const user = await findUser();
-    if (!user) notFound();
+    if (!email) notFound();
 
     const getCachedMypageTypeCount = nextCache(getMypageTypeCount,
-        [`${user.id}`],
+        [`${email}`],
         {
-            tags: [`${user}`],
+            tags: [`${email}`],
             revalidate: 30
         });
-    const counts = await getCachedMypageTypeCount(user);
+    const counts = await getCachedMypageTypeCount(email);
     counts.forEach((item) => {
         if (item.type == "업무") {
             typeCount.work++;

@@ -46,10 +46,10 @@ export const userLogIn = async (prev: any, formData: FormData) => {
         }
     });
     
-    const ok = await bcrypt.compare(result.data.password, user!.password ?? "")
+    const ok = await bcrypt.compare(result.data.password, user.password ?? "")
     if(ok) {
         const session = await getSession(); // 암호화된 세션 데이터를 복호화 해서 가져옴
-        session.id = user!.id;
+        session.email = user.email;
         await session.save(); //암호화 해서 다시 저장
         const curDate = new Date();
         redirect(`/home/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);

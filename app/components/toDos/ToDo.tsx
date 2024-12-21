@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import { FcTodoList } from "react-icons/fc";
 import { formatToTimeAgo } from "../../lib/util";
 import { FaPlayCircle } from "react-icons/fa";
-import curToDo_store from "../../lib/curToDo_store";
 import { toDosForm } from "@/app/lib/type";
 import { memo, useCallback } from "react";
+import toDoStore from "@/app/lib/ToDoStore";
 
 interface Props {
     toDo: toDosForm
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const ToDo = memo(({ toDo, year, month, day }: Props) => {
-    const { curToDoId, setCurToDo, intervalId, setDuration } = curToDo_store();
+    const { curToDoId, setCurToDo, intervalId, setDuration } = toDoStore();
     const watchTarget = [toDo, year, month, day];
 
     const setTime = (time: number) => {

@@ -1,27 +1,27 @@
 export interface userType {
-    email?: string,
+    email?: string
     id?: number
 }
 
 export interface getCountType {
-    user: userType
-    year: number, 
+    email: string
+    year: number
     month: number
 }
 
 export interface toDosForm {
-    id: number;
-    title: string;
-    description: string;
-    type: string;
-    year: number;
-    month: number;
-    day: number;
-    isComplete: boolean;
-    duration: number;
-    created_at: Date;
-    updated_at: Date;
-    userId: number;
+    id: number
+    title: string
+    description: string
+    type: string
+    year: number
+    month: number
+    day: number
+    isComplete: boolean
+    duration: number
+    created_at: Date
+    updated_at: Date
+    userEmail: string
 }
 
 export interface chartDataType {
@@ -33,8 +33,8 @@ export interface chartDataType {
 }
 
 export interface ToDoRevalidateType {
-    userId: number, 
-    year: number, 
-    month: number, 
+    email: string 
+    year: number 
+    month: number 
     day: number
 }

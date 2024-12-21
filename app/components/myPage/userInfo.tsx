@@ -9,7 +9,7 @@ interface userForm {
     email: string
 }
 
-export default function UserInfo({user}: {user:userForm}) {
+export default function UserInfo({ user }: { user: userForm }) {
     const isGoogleLogin = useSession();
     return (
         <div className="flex flex-col items-start gap-4 mt-32">

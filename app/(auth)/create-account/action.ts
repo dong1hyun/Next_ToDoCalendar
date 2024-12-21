@@ -83,7 +83,7 @@ export const create_account = async (prev: any, formData: FormData) => {
     });
 
     const session = await getSession();
-    session.id = user.id;
+    session.email = user.email;
     await session.save();
 
     const curDate = new Date();
