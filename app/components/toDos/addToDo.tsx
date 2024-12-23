@@ -56,7 +56,7 @@ export default function AddToDos() {
             >
                 <IoIosBackspace onClick={() => setShowPopUp(false)} className="absolute right-2 top-2 size-5 cursor-pointer" />
                 <input placeholder="제목" {...register("title")} required className={inputForm} />
-                <input placeholder="할 일" {...register("description")} required className={`h-20 ${inputForm}`} />
+                <textarea placeholder="할 일" {...register("description")} required className={`h-20 ${inputForm}`} />
                 <div className="flex justify-center">할 일의 종류를 선택해주세요!</div>
                 <div className="flex justify-between gap-3 text-sm md:px-10 mb-3">
                     <ToDoTypeBtn type="업무" />

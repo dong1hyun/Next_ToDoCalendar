@@ -13,7 +13,7 @@ interface Props {
 
 export default function ToDoList({ toDos, year, month, day }: Props) {
     return <AnimatePresence>
-        <div className="flex flex-col gap-6 mt-10 last:mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 last:mb-10">
             {toDos.map((toDo) =>
                 <ToDo key={toDo.id} toDo={toDo} year={year} month={month} day={day} />
             )}

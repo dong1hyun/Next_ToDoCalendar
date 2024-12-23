@@ -3,7 +3,6 @@
 import db from "@/app/lib/db"
 import getSession from "@/app/lib/session"
 import { redirect } from "next/navigation";
-import toDoStore from "@/app/lib/ToDoStore";
 import { findUserEmail } from "@/app/lib/serverUtil";
 
 export const getUserInfo = async () => {

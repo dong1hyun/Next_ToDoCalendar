@@ -44,7 +44,7 @@ const SelectedMonth = ({year, month}: Props) => {
     }, [])
 
     return (
-        <div className="text-center text-xl font-bold mb-4 flex justify-center items-center">
+        <div className="text-center font-bold flex justify-center items-center text-sm md:text-xl">
             {showDate ? (
                 <SelectDate
                     onSubmit={handleSubmit(onValid)}
@@ -54,7 +54,7 @@ const SelectedMonth = ({year, month}: Props) => {
                 >
                     <input type="number" defaultValue={year} {...register("year")} className={selectInputStyle} placeholder="연도" />
                     <input type="number" defaultValue={month + 1} {...register("month")} className={selectInputStyle} placeholder="월" />
-                    <button className="bg-blue-500 rounded-md px-2 text-sm">확인</button>
+                    <button className="bg-blue-500 text-white rounded-md px-2 text-xs">확인</button>
                 </SelectDate>
             ) :
                 <>
