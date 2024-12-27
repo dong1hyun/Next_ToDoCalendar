@@ -25,6 +25,12 @@ export async function getToDoByKeyword(keyword: string, year: number, month: num
                         mode: 'insensitive',
                     },
                 },
+                {
+                    type: {
+                        contains: keyword, // 설명에 키워드 포함 여부
+                        mode: 'insensitive',
+                    },
+                },
             ],
         },
         select: {

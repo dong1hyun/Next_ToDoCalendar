@@ -2,6 +2,7 @@
 
 import db from "@/app/lib/db";
 import { findUserEmail, toDoRevalidate } from "@/app/lib/serverUtil";
+import { revalidateTag } from "next/cache";
 
 export interface formData {
     title: string,
@@ -48,6 +49,19 @@ export async function getToDos(email: string, year: number, month: number, day: 
     return toDos;
 }
 
+export async function getToDo(email: string, id: number) {
+    const toDo = await db.toDo.findUnique({
+        where: {
+            id,
+            user: {
+                email
+            }
+        }
+    });
+
+    return toDo;
+}
+
 export const deleteToDo = async (id: number, year: number, month: number, day: number) => {
     const email = await findUserEmail();
     await db.toDo.delete({
@@ -56,6 +70,7 @@ export const deleteToDo = async (id: number, year: number, month: number, day: n
         }
     });
     toDoRevalidate({ email, year, month, day });
+    revalidateTag(`${id}`);
 }
 
 export const completeToDo = async (id: number, year: number, month: number, day: number, isComplete: boolean) => {
@@ -70,4 +85,5 @@ export const completeToDo = async (id: number, year: number, month: number, day:
     });
 
     toDoRevalidate({ email, year, month, day });
+    revalidateTag(`${id}`);
 }

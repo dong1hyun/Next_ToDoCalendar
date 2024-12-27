@@ -1,8 +1,9 @@
 import { create } from "zustand";
 
-interface storeType {
+interface StoreType {
     email: string,
     curToDoId: number,
+    openToDoId: number,
     year: number,
     month: number,
     day: number,
@@ -13,12 +14,14 @@ interface storeType {
     setEmail: (email: string) => void;
     setCurToDo: (id: number, title: string, year: number, month: number, day: number) => void,
     setDuration: (duration: string) => void,
-    setIntervalId: (intervalId: number) => void
+    setIntervalId: (intervalId: number) => void,
+    setOpenToDoId: (id: number) => void
 }
 
-const toDoStore = create<storeType>((set) => ({
+const toDoStore = create<StoreType>((set) => ({
     email: "",
     curToDoId: 0,
+    openToDoId: 0,
     year: 0,
     month: 0,
     day: 0,
@@ -40,6 +43,9 @@ const toDoStore = create<storeType>((set) => ({
     })),
     setIntervalId: (intervalId: number) => set((state) => ({
         ...state, intervalId
+    })),
+    setOpenToDoId: (id) => set((state) => ({
+        ...state, openToDoId: id
     }))
 }));
 

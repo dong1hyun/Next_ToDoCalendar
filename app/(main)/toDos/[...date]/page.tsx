@@ -1,8 +1,9 @@
-import { getToDos } from "./action";
+import { getToDo, getToDos } from "./action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
 import { findUserEmail } from "@/app/lib/serverUtil";
 import ToDoList from "@/app/components/toDos/ToDoList";
 import AddToDos from "@/app/components/toDos/AddToDo";
+import ToDoDetail from "@/app/components/toDos/ToDoDetail";
 
 interface paramsForm {
   params: {
@@ -17,7 +18,7 @@ export default async function ToDos({ params }: paramsForm) {
   const year = +date[0];
   const month = +date[1];
   const day = +date[2]
-  const getCachedToDos = nextCache(getToDos, 
+  const getCachedToDos = nextCache(getToDos,
     [`${email}-${year}-${month}-${day}`],
     {
       tags: [`${email}-${year}-${month}-${day}`],
@@ -25,14 +26,13 @@ export default async function ToDos({ params }: paramsForm) {
     });
   const toDos = await getCachedToDos(email, year, month, day);
   return (
-    <div>
-      <div className="flex flex-col items-center pt-20">
-        <h1 className="text-3xl mt-10">{month}월 {date[2]}일</h1>
-        <div className="flex flex-col gap-5">
-          <ToDoList toDos={toDos} year={year} month={month} day={day} />
-        </div>
-        <AddToDos />
+    <div className="flex flex-col items-center pt-20 mb-10">
+      <h1 className="text-3xl mt-10">{month}월 {date[2]}일</h1>
+      <div className="relative flex flex-col items-center gap-5">
+        <ToDoList toDos={toDos} year={year} month={month} day={day} />
+        <ToDoDetail />
       </div>
+      <AddToDos />
     </div>
   );
 }

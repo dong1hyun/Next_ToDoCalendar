@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import ToDoSearchResult from "./ToDoSearchResultContainer";
 import { getToDoByKeyword } from "../action";
+import ToDoSearchResultContainer from "./ToDoSearchResultContainer";
 
 interface Props {
     isOpenSearchResult: boolean,
@@ -44,7 +44,7 @@ const ToDoSearch = ({ isOpenSearchResult, setIsOpenSearchResult, year, month }: 
                 placeholder="할 일 검색"
                 className="w-full h-full focus:outline-none"
             />
-            <ToDoSearchResult keyword={keyword} isOpenSearchResult={isOpenSearchResult} setIsOpenSearchResult={setIsOpenSearchResult} searchResult={searchResult} />
+            <ToDoSearchResultContainer keyword={keyword} isOpenSearchResult={isOpenSearchResult} setIsOpenSearchResult={setIsOpenSearchResult} searchResult={searchResult} />
         </form>
     )
 }
