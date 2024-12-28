@@ -86,6 +86,7 @@ const ToDoDetail = () => {
                     <div>Loading...</div>
                     :
                     <>
+                    {toDo.isComplete && <div className="absolute left-3 top-5 text-sm text-sky-300">complete!</div>}
                         <div className="border-b border-solid border-neutral-300">
                             {toDo.title}
                         </div>

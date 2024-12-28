@@ -20,8 +20,7 @@ const MyResponsivePie = ({ typeCount, colors }: Props) => {
         [typeCount]
     );
     return (
-        <div className="flex flex-col items-center mt-12 xl:mt-32">
-            <h1 className="text-xl font-bold">당월 할 일 차트</h1>
+        <div className="flex flex-col items-center">
             <div className="w-80 h-80">
                 <ResponsivePie
                     data={data}
