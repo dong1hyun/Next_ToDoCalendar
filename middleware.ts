@@ -17,8 +17,7 @@ export async function middleware(req: NextRequest) {
     const exist = publicURLs[pathname];
     const session = await getSession();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    // console.log("Token:", token);
-    if(!session.id && !token) { //로그아웃 상태
+    if(!session.email && !token) { //로그아웃 상태
         if(!exist) { //private에 접근
             return NextResponse.redirect(new URL("/", req.url));
         }

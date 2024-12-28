@@ -9,10 +9,13 @@ const Card = () => <div className="w-[300px] sm:min-w-[350px] md:min-w-[400px] b
 
 
 export default function Loading() {
-    return <div className="flex flex-col gap-5 items-center justify-center pt-32">
-            <div className="h-10 w-[180px] bg-gray-300 rounded" />
-            <Card />
-            <Card />
-            <Card />
-    </div>
+    return <div className="flex flex-col items-center pt-20">
+            <div className="h-10 w-[180px] bg-gray-300 rounded mt-10" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center justify-center pt-8">
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+            </div>
+        </div>
 }

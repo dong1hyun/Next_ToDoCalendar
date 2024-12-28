@@ -3,14 +3,13 @@
 import db from "@/app/lib/db"
 import getSession from "@/app/lib/session"
 import { redirect } from "next/navigation";
-import { userType } from "@/app/lib/type";
-import { find_userId } from "@/app/lib/serverUtil";
+import { findUserEmail } from "@/app/lib/serverUtil";
 
 export const getUserInfo = async () => {
-    const id = await find_userId();
+    const email = await findUserEmail();
     const user = await db.user.findUnique({
         where: {
-            id
+            email
         },
         select: {
             username: true,
@@ -27,7 +26,7 @@ export const logOut = async () => {
     redirect("/");
 }
 
-export const getMypageTypeCount = async (user: userType) => {
+export const getMypageTypeCount = async (email: string) => {
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -36,7 +35,7 @@ export const getMypageTypeCount = async (user: userType) => {
             year,
             month,
             isComplete: true,
-            user
+            userEmail: email
         }
     });
     return count;

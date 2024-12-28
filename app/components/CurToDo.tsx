@@ -1,16 +1,13 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
-import curToDo_store from '../lib/curToDo_store';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import axios from "axios"
-import { revalidateTag } from 'next/cache';
 import { buttonStyle } from '../lib/css';
+import toDoStore from '../lib/ToDoStore';
 
 const CurToDo: React.FC = () => {
-  const { curToDoId, title, startTime, year, month, day, duration, setDuration, setIntervalId } = curToDo_store(); // 현재 실행중인 toDo
-  const { date } = useParams();
-  // console.log(`toDos-${date[0]}-${date[1]}-${date[2]}`)
+  const { curToDoId, title, startTime, year, month, day, duration, setDuration, setIntervalId } = toDoStore(); // 현재 실행중인 toDo
   const [prevDuration, setPrevDuration] = useState(0); // 과거의 toDo 경과 시간
   const isMounted = useRef(false);
   const getDuration = async (id: number) => { // 과거의 toDo 경과 시간을 가져옴
@@ -82,7 +79,7 @@ const CurToDo: React.FC = () => {
   }, [curToDoId, prevDuration]);
 
   return (
-    <div onClick={onCurToDoClick} className={`${buttonStyle} bg-black px-4 text-sm`}>
+    <div onClick={onCurToDoClick} className={`${buttonStyle} ${curToDoId > 0 ? "bg-orange-400" : "bg-black"} px-4 text-sm`}>
       <h1 className='max-w-32 truncate ...'>진행중: {title}</h1>
       <div>경과 시간: {duration}</div>
     </div>

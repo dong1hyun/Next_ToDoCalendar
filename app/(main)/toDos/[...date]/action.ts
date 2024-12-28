@@ -1,8 +1,8 @@
 "use server"
 
 import db from "@/app/lib/db";
+import { findUserEmail, toDoRevalidate } from "@/app/lib/serverUtil";
 import { revalidateTag } from "next/cache";
-import { find_userId } from "@/app/lib/serverUtil";
 
 export interface formData {
     title: string,
@@ -11,7 +11,7 @@ export interface formData {
 }
 
 export async function addToDo(toDo: formData, year: number, month: number, day: number) {
-    const userId = await find_userId();
+    const email = await findUserEmail();
     await db.toDo.create({
         data: {
             title: toDo.title,
@@ -23,21 +23,23 @@ export async function addToDo(toDo: formData, year: number, month: number, day: 
             duration: 0,
             user: {
                 connect: {
-                    id: userId
+                    email
                 }
             }
         }
     });
-    revalidateTag(`${userId}-${year}-${month}-${day}`);
+    toDoRevalidate({ email, year, month, day });
 }
 
-export async function getToDos(user: { id?: number, email?: string }, year: number, month: number, day: number) {
+export async function getToDos(email: string, year: number, month: number, day: number) {
     const toDos = await db.toDo.findMany({
         where: {
             year,
             month,
             day,
-            user
+            user: {
+                email
+            }
         },
         orderBy: {
             created_at: "asc"
@@ -47,36 +49,41 @@ export async function getToDos(user: { id?: number, email?: string }, year: numb
     return toDos;
 }
 
+export async function getToDo(email: string, id: number) {
+    const toDo = await db.toDo.findUnique({
+        where: {
+            id,
+            user: {
+                email
+            }
+        }
+    });
+
+    return toDo;
+}
+
 export const deleteToDo = async (id: number, year: number, month: number, day: number) => {
-    "use server"
-    const userId = await find_userId();
+    const email = await findUserEmail();
     await db.toDo.delete({
         where: {
             id
         }
     });
-    revalidateTag(`${userId}-${year}-${month}-${day}`);
+    toDoRevalidate({ email, year, month, day });
+    revalidateTag(`${id}`);
 }
 
-export const completeToDo = async (id: number, year: number, month: number, day: number) => {
-    "use server"
-    const userId = await find_userId();
-    const toDo = await db.toDo.findUnique({
-        where: {
-            id
-        },
-        select: {
-            isComplete: true
-        }
-    });
+export const completeToDo = async (id: number, year: number, month: number, day: number, isComplete: boolean) => {
+    const email = await findUserEmail();
     await db.toDo.update({
         where: {
             id
         },
         data: {
-            isComplete: !toDo?.isComplete
+            isComplete: !isComplete
         }
     });
-    
-    revalidateTag(`${userId}-${year}-${month}-${day}`);
+
+    toDoRevalidate({ email, year, month, day });
+    revalidateTag(`${id}`);
 }
