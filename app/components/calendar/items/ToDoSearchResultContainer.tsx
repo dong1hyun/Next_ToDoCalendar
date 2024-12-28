@@ -36,7 +36,7 @@ const ToDoSearchResultContainer = ({ keyword, isOpenSearchResult, setIsOpenSearc
                     onClick={() => setIsOpenSearchResult(false)}
                     className='absolute right-3 top-3 size-5 text-neutral-400 cursor-pointer'
                 />
-                <h1>"{keyword}" 검색 결과입니다.</h1>
+                <h1>{`"${keyword}"`} 검색 결과입니다.</h1>
                 <ToDoSearchResult searchResult={searchResult} />
             </motion.article>
         </AnimatePresence>

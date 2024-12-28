@@ -29,7 +29,7 @@ export default async function ToDos({ params }: paramsForm) {
     <div className="flex flex-col items-center pt-20 mb-10">
       <h1 className="text-3xl mt-10">{month}월 {date[2]}일</h1>
       <div className="relative flex flex-col items-center gap-5">
-        <ToDoList toDos={toDos} year={year} month={month} day={day} />
+        <ToDoList toDos={toDos} />
         <ToDoDetail />
       </div>
       <AddToDos />

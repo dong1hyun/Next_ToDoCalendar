@@ -65,4 +65,6 @@ const Days = memo(({ year, month, completeCount, toDoCount }: Props) => {
     )
 });
 
+Days.displayName = "Days";
+
 export default Days;

@@ -8,14 +8,10 @@ import { useRouter } from 'next/navigation';
 
 interface Props {
     toDo: toDosForm
-    year: number
-    month: number
-    day: number
 }
 
-const ToDo = memo(({ toDo, year, month, day }: Props) => {
-    const { curToDoId, setCurToDo, intervalId, setDuration, setOpenToDoId } = toDoStore();
-    const router = useRouter();
+const ToDo = memo(({ toDo }: Props) => {
+    const { curToDoId, setOpenToDoId } = toDoStore();
     const setTime = (time: number) => {
         const second = Math.floor(time / 1000);
         const minutes = Math.floor(second / 60);
@@ -56,5 +52,7 @@ const ToDo = memo(({ toDo, year, month, day }: Props) => {
         </motion.div>
     );
 });
+
+ToDo.displayName = "ToDo";
 
 export default ToDo;
