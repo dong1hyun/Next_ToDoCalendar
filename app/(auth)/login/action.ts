@@ -22,8 +22,7 @@ const checkEmailExists = async (email: string) => {
 const loginFormSchema = z.object({
   email: z
     .string()
-    .email()
-    .refine(checkEmailExists, "An account with this email does not exist."),
+    .refine(checkEmailExists, "존재하지 않는 이메일입니다."),
   password: z
     .string()
 })
