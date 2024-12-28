@@ -6,7 +6,7 @@ import toDoStore from "@/app/lib/ToDoStore";
 import { useCallback, useEffect, useState } from "react";
 import { FaPlayCircle } from "react-icons/fa";
 import { RiCloseFill } from "react-icons/ri";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 
 const ToDoDetail = () => {
     const { curToDoId, setCurToDo, setDuration, intervalId, setOpenToDoId, openToDoId } = toDoStore();
@@ -75,29 +75,32 @@ const ToDoDetail = () => {
     if (openToDoId === 0) return null;
 
     return (
-        <motion.article className="fixed bg-white rounded-xl p-5 flex flex-col items-center w-[300px] h-[300px]"
-            initial={{ opacity: 0}}
-            animate={{ opacity: 1}}
-            transition={{ duration: 0.3}}
+        <motion.article className="fixed bg-white rounded-xl px-6 pt-4 pb-10 flex flex-col items-center 
+        gap-4 w-[330px] h-[200px] shadow-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
         >
             {
                 loading ?
                     <div>Loading...</div>
                     :
                     <>
-                        <div>
+                        <div className="border-b border-solid border-neutral-300">
                             {toDo.title}
                         </div>
-                        <div>
+                        <div className="overflow-y-scroll">
                             {toDo.description}
                         </div>
-                        <button onClick={() => onDeleteClick(toDo.id, toDo.year, toDo.month, toDo.day)} className="">삭제</button>
                         <button onClick={() => onCloseClick()} className="absolute right-1 top-1"><RiCloseFill /></button>
-                        <button onClick={onCompleteClick}
-                            className={`${toDo.isComplete ? "bg-red-500" : "bg-blue-500"} 
-                        rounded-md mt-5 px-2 text-white hover:scale-125 transition duration-200`}>
-                            {toDo.isComplete ? "취소" : "완료"}
-                        </button>
+                        <div className="absolute bottom-3 flex gap-2">
+                            <button onClick={onCompleteClick}
+                                className={`${toDo.isComplete ? "bg-orange-500" : "bg-blue-500"} 
+                             rounded-md px-2 text-white hover:scale-125 transition duration-200`}>
+                                {toDo.isComplete ? "취소" : "완료"}
+                            </button>
+                            <button className="rounded-md px-2 text-white hover:scale-125 transition duration-200 bg-red-500" onClick={() => onDeleteClick(toDo.id, toDo.year, toDo.month, toDo.day)}>삭제</button>
+                        </div>
                         {toDo.isComplete ? null : <button onClick={onPlayClick}><FaPlayCircle className="absolute right-2 top-1/2 size-5" /></button>}
                     </>
             }

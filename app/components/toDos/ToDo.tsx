@@ -33,7 +33,7 @@ const ToDo = memo(({ toDo, year, month, day }: Props) => {
             style={{ opacity: toDo.isComplete ? 0.5 : 1 }}
             transition={{ duration: 0.5 }}
             className={`hover:scale-105 cursor-pointer relative shadow-2xl p-5 h-[150px] overflow-hidden 
-            rounded-xl bg-white text-center w-[300px] sm:min-w-[350px] md:min-w-[400px] transition-transform duration-150`}
+            rounded-xl bg-white text-center w-[300px] sm:min-w-[250px] md:min-w-[300px] transition-transform duration-150`}
             onClick={() => setOpenToDoId(toDo.id)}
         >
             <div className="flex flex-col gap-3 relative">
