@@ -4,6 +4,12 @@ import { findUserEmail } from "@/app/lib/serverUtil";
 import ToDoDetail from "@/app/components/toDos/ToDoDetail";
 import ToDoList from "@/app/components/toDos/toDoList";
 import AddToDos from "@/app/components/toDos/addToDo";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "일정을 작성하고 상태를 변경해보세요.",
+  description: "일정을 작성하고 완료상태를 변경할 수 있습니다. 그리고 업무의 진행 시간을 측정할 수 있습니다.",
+}
 
 interface paramsForm {
   params: {

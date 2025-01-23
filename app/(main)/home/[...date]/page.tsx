@@ -3,6 +3,12 @@ import { unstable_cache as nextCache } from "next/cache";
 import { getCounts } from "./action";
 import { findUserEmail } from "@/app/lib/serverUtil";
 import { Calendar } from "@/app/components/calendar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "일정을 손쉽게 관리해보세요.",
+    description: "달력과 그래프를 통해 일정을 한눈에 확인하고 일정을 추적할 수 있습니다.",
+}
 
 interface urlForm {
     params: {
