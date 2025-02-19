@@ -4,7 +4,6 @@ import { formatToTimeAgo } from "../../lib/util";
 import { toDosForm } from "@/app/lib/type";
 import { memo } from "react";
 import toDoStore from "@/app/lib/ToDoStore";
-import { useRouter } from 'next/navigation';
 
 interface Props {
     toDo: toDosForm

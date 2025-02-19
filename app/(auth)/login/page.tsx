@@ -1,10 +1,11 @@
 "use client"
 
-import { Error, inputForm } from "@/app/components/Auth";
 import { useFormState } from "react-dom";
 import { FcGoogle } from "react-icons/fc";
 import { userLogIn } from "./action";
 import { signIn, useSession } from "next-auth/react";
+import { inputForm } from "@/app/ui";
+import Error from "@/app/components/atom/Error";
 
 export default function Login() {
     const [state, action] = useFormState(userLogIn, null);

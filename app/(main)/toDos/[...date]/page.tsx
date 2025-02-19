@@ -1,10 +1,10 @@
 import { getToDo, getToDos } from "./action";
 import { unstable_cache as nextCache, revalidateTag } from "next/cache";
 import { findUserEmail } from "@/app/lib/serverUtil";
-import ToDoDetail from "@/app/components/toDos/ToDoDetail";
-import ToDoList from "@/app/components/toDos/toDoList";
-import AddToDos from "@/app/components/toDos/addToDo";
+import ToDoDetail from "@/app/components/organisms/ToDoDetail";
 import { Metadata } from "next";
+import AddToDos from "@/app/components/organisms/AddToDo";
+import ToDoList from "@/app/components/organisms/ToDoList";
 
 export const metadata: Metadata = {
   title: "일정을 작성하고 상태를 변경해보세요.",

@@ -4,10 +4,10 @@ import { useState } from "react";
 import { IoIosBackspace } from "react-icons/io";
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { addToDo, formData } from "../../(main)/toDos/[...date]/action";
 import { AnimatePresence, motion } from 'framer-motion';
-import { inputForm } from "../Auth";
+import { inputForm } from "@/app/ui";
 
 const Loading = () => (
     <div className="flex flex-row items-start justify-center gap-2 *:w-4 *:h-4 *:rounded-full *:bg-blue-700 *:animate-bounce ">
@@ -15,7 +15,7 @@ const Loading = () => (
         <div className="[animation-delay:-.3s]"></div>
         <div className="[animation-delay:-.5s]"></div>
     </div>
-)
+);
 
 export default function AddToDos() {
     const { date } = useParams();

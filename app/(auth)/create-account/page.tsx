@@ -2,7 +2,8 @@
 
 import { useFormState } from "react-dom";
 import { create_account } from "./action";
-import { Error, inputForm } from "@/app/components/Auth";
+import Error from "@/app/components/atom/Error";
+import { inputForm } from "@/app/ui";
 
 export default function CreateAccount() {
     const [state, action] = useFormState(create_account, null);
