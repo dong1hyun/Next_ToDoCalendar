@@ -1,42 +1,16 @@
 "use server"
 
+import { WRONG_INPUT_ERROR } from '@/app/lib/const';
 import db from '@/app/lib/db';
 import getSession from '@/app/lib/session';
 import bcrypt from 'bcrypt';
 import { redirect } from "next/navigation";
-import { z } from "zod";
+import { UserDataForm } from './page';
 
-const checkEmailExists = async (email: string) => {
+export const userLogIn = async (userData: UserDataForm) => {
   const user = await db.user.findUnique({
     where: {
-      email
-    },
-    select: {
-      id: true
-    }
-  })
-
-  return Boolean(user);
-}
-
-const loginFormSchema = z.object({
-  email: z
-    .string()
-    .refine(checkEmailExists, "존재하지 않는 이메일입니다."),
-  password: z
-    .string()
-})
-
-export const userLogIn = async (prev: any, formData: FormData) => {
-  const data = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
-  const result = await loginFormSchema.safeParseAsync(data);
-  if (!result.success) return result.error.flatten();
-  const user = await db.user.findUnique({
-    where: {
-      email: result.data.email
+      email: userData.email
     },
     select: {
       id: true,
@@ -44,8 +18,8 @@ export const userLogIn = async (prev: any, formData: FormData) => {
       email: true
     }
   });
-
-  const ok = await bcrypt.compare(result.data.password, user.password ?? "")
+  if(!user) return WRONG_INPUT_ERROR;
+  const ok = await bcrypt.compare(userData.password, user.password ?? "")
   if (ok) {
     const session = await getSession(); // 암호화된 세션 데이터를 복호화 해서 가져옴
     session.email = user.email;
@@ -53,12 +27,7 @@ export const userLogIn = async (prev: any, formData: FormData) => {
     const curDate = new Date();
     redirect(`/home/${curDate.getFullYear()}/${curDate.getMonth() + 1}`);
   } else {
-    return {
-      fieldErrors: {
-        password: ["Wrong password"],
-        email: []
-      }
-    }
+    return WRONG_INPUT_ERROR;
   }
 }
 

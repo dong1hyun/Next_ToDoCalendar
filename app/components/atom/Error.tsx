@@ -1,5 +1,6 @@
-export default function Error({errors = []}: {errors?: string[]}) {
+export default function Error({errorMsg}: {errorMsg?: string}) {
+    if(!errorMsg) return null;
     return <div className="text-red-500 font-medium">
-        {errors.map((error, index) => <span key={index} className="text-red-500 font-medium">{error}</span>)}
+        <span className="text-red-500 font-medium">{errorMsg}</span>
     </div>
 }

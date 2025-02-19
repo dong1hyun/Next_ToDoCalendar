@@ -30,7 +30,7 @@ export default function Home() {
         <AuthLink path="/login" color="bg-blue-500" title="로그인" />
         <div className="border-b border-solid border-neutral-400 w-40" />
         <button onClick={() => {handleGuestLogin()}} className="bg-yellow-500 p-3 w-40">게스트 로그인</button>
-        <SpinLoading isLoading={isGuestLoggingin} title="로그인중" message="잠시만 기다려주세요." color="blue" size={24} />
+        <SpinLoading isLoading={isGuestLoggingin} title="로그인중" message="잠시만 기다려주세요." style="top-1/4" size={24} />
       </div>
     </div>
     );

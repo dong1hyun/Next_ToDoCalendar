@@ -1,15 +1,17 @@
 "use server"
 
-import { DIFFENT_PASSWORD_ERROR, EMAIL_ERROR, EXIST_PASSWORD_ERROR, PASSWORD_MIN_LENGH_ERROR, PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR, USERNAME_MIN_LENGTH_ERROR } from "@/app/lib/const";
 import db from "@/app/lib/db";
-import { z } from "zod";
 import bcrypt from "bcrypt"
 import { redirect } from "next/navigation";
 import getSession from "@/app/lib/session";
+import { DIFFENT_PASSWORD_ERROR, EXIST_EMAIL_ERROR } from "@/app/lib/const";
+import { UseDataForm } from "./page";
 
-const checkPassword = ({ password, confirm_password }: { password: string, confirm_password: string }) => password === confirm_password
+export const checkPassword = ({ password, confirm_password }: { password: string, confirm_password: string }) => {
+    return password === confirm_password ? true : DIFFENT_PASSWORD_ERROR;
+}
 
-const checkEmail = async (email: string) => {
+export const checkEmail = async (email: string) => {
     const user = await db.user.findUnique({
         where: {
             email
@@ -18,48 +20,15 @@ const checkEmail = async (email: string) => {
             id: true
         }
     });
-
-    return !user;
+    return user ? EXIST_EMAIL_ERROR : true;
 }
-const userFormSchema = z.object({
-    username: z
-        .string()
-        .trim()
-        .min(3, USERNAME_MIN_LENGTH_ERROR)
-        .max(10),
-    email: z
-        .string()
-        .email(EMAIL_ERROR)
-        .refine(checkEmail, EXIST_PASSWORD_ERROR),
-    password: z
-        .string()
-        .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGH_ERROR)
-        .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
-    confirm_password: z
-        .string()
-})
-    .refine(
-        checkPassword,
-        {
-            message: DIFFENT_PASSWORD_ERROR,
-            path: ["confirm_password"]
-        },
-    );
 
-export const create_account = async (prev: any, formData: FormData) => {
-    const data = {
-        username: formData.get("username"),
-        email: formData.get("email"),
-        password: formData.get("password"),
-        confirm_password: formData.get("confirm_password")
-    };
-    const result = await userFormSchema.safeParseAsync(data);
-    if (!result.success) return result.error.flatten();
-    const hashedPassword = await bcrypt.hash(result.data.password, 12);
+export const create_account = async (userData: UseDataForm) => {
+    const hashedPassword = await bcrypt.hash(userData.password, 12);
     const user = await db.user.create({
         data: {
-            username: result.data.username,
-            email: result.data.email,
+            username: userData.username,
+            email: userData.email,
             password: hashedPassword
         },
         select: {
